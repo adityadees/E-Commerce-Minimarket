@@ -124,8 +124,7 @@ class FrontendC extends CI_Controller{
 			'user_id'=>$user_id,
 			'pemesanan_status'=>$pemesanan_status
 		];
-		$waiting = $this->Mymod->ViewDataWhere($table,$where);
-		$x['waiting'] = $waiting;
+		$x['waiting'] = $waiting = $this->Mymod->ViewDataWhere($table,$where);
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/myaccount/myorders',$x);
@@ -243,6 +242,20 @@ class FrontendC extends CI_Controller{
 		exit;
 	}
 
+	public function batal_pemesanan(){
+		$pemesanan_kode=$this->input->post('pemesanan_kode');
+		$title = 'Pemesanan';
+		$table='pemesanan';
+		$where =[ 
+			'pemesanan_kode' => $pemesanan_kode
+		];
+
+		$this->Mymod->DeleteData($table,$where);
+		$this->session->set_flashdata('success', 'Berhasil menghapus data '.$title);
+		header("Location: {$_SERVER['HTTP_REFERER']}");
+		exit;	
+	}
+
 	public function update_cart(){
 
 	}
@@ -307,6 +320,12 @@ class FrontendC extends CI_Controller{
 				$this->Mymod->insertData('pemesanan_ship',$data);
 			}
 
+			$table='keranjang';
+			$user_id=$_SESSION['user_id'];
+			$where = [
+				'user_id' => $user_id
+			];
+			$this->Mymod->DeleteData($table,$where);
 			$this->session->set_flashdata('success', 'Berhasil memesan');
 			redirect('checkout');
 		} else {

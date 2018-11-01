@@ -213,7 +213,7 @@ html {
                                                             }
                                                             $oldp +=$gcart['produk_harga']*$gcart['keranjang_qty'];
                                                             $total +=$subtotal;
-                                                            $tsubdsc +=$subdsc;
+                                                            @$tsubdsc +=$subdsc;
                                                             $tnodsc +=$gcart['produk_harga']*$gcart['keranjang_qty'];
                                                             $tqty +=$subtqty;
                                                             $tongkir +=$subongkir;
@@ -231,11 +231,11 @@ html {
                                                                         <input type="hidden" name="pdp_size[]" value="<?= $gcart['keranjang_ukuran'];?>">
                                                                         <p><?php if($gcart['keranjang_ukuran']=='m1'){ echo "1 Papan"; 
                                                                     } else {
-                                                                     echo "2 Papan";
-                                                                 }?></p>
-                                                             </div>
-                                                         </td>
-                                                         <td>
+                                                                       echo "2 Papan";
+                                                                   }?></p>
+                                                               </div>
+                                                           </td>
+                                                           <td>
                                                             <div class="o-pro-price">
                                                                 <p>
                                                                     <?php 
@@ -294,7 +294,9 @@ html {
                                                                             <input type="hidden" name="pdp_diskon[]" value="<?= $tqty;?>">
 
                                                                         <?php }else {
-                                                                            echo "0";
+                                                                            echo "0"; ?>
+                                                                            <input type="hidden" name="pdp_diskon[]" value="0">
+                                                                            <?php 
                                                                         }
                                                                     }
                                                                     ?>
@@ -323,8 +325,8 @@ html {
                                                 <tr class="tr-f">
                                                     <td colspan="4" >Diskon</td>
                                                     <td colspan="1" >
-                                                        <input type="hidden" name="pemesanan_diskon" value="<?= $subdsc+$subtqty;?>">
-                                                        <?= "Rp. ".number_format($subdsc+$subtqty);?>
+                                                        <input type="hidden" name="pemesanan_diskon" value="<?= @$subdsc+$subtqty;?>">
+                                                        <?= "Rp. ".@number_format($subdsc+$subtqty);?>
                                                     </td>
                                                     <td colspan="1" class="text-left text-success">(-)</td>
                                                 </tr>

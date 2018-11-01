@@ -150,7 +150,7 @@ if(isset($_SESSION['logged_in_user'])){
 
                                         }
                                         $total +=$subtotal;
-                                        $tsubdsc +=$subdsc;
+                                        @$tsubdsc +=$subdsc;
                                         $tnodsc +=$gcart['produk_harga']*$gcart['keranjang_qty'];
                                         $tqty +=$subtqty;
                                         $tongkir +=$subongkir;

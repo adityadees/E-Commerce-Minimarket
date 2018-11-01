@@ -18,7 +18,7 @@ class Mymod extends CI_Model{
     public function ViewDataWhere($table,$where){
         $this->db->select('*');
         $res=$this->db->get_where($table,$where);
-        return $res->row_array();
+        return $res->result_array();
     }
     public function ViewData($table){
         $res=$this->db->get($table);

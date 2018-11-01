@@ -141,49 +141,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title"><span>3</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-3">Modify your photo   </a></h5>
-                                    </div>
-                                    <form action="<?= base_url();?>frontendc/update_alamat">
-                                        <div id="my-account-3" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="billing-information-wrapper">
-                                                    <div class="account-info-wrapper">
-                                                        <h4>Foto Profil</h4>
-                                                    </div>
-                                                    <div class="entries-wrapper">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                                <div class="entries-info text-center">
-                                                                    <p>Farhana hayder (shuvo) </p>
-                                                                    <p>hastech </p>
-                                                                    <p> Road#1 , Block#c </p>
-                                                                    <p> Rampura. </p>
-                                                                    <p>Bangladesh </p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                                <div class="entries-edit-delete text-center">
-                                                                    <a class="edit" href="#">Edit</a>
-                                                                    <a href="#">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="billing-back-btn">
-                                                        <div class="billing-back">
-                                                            <a href="#"><i class="ion-arrow-up-c"></i> back</a>
-                                                        </div>
-                                                        <div class="billing-btn">
-                                                            <button type="submit">Continue</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
             <div class="container">
                 <div class="breadcrumb-content">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="<?= base_url()?>">Home</a></li>
                         <li class="active">My Account </li>
                     </ul>
                 </div>
@@ -22,12 +22,12 @@
                                         <li><a href="<?= base_url();?>myaccount">Dashboard</a></li>
                                         <li><a href="<?= base_url();?>myprofil">Personal Information</a></li>
                                         <li><a href="<?= base_url();?>myorders">My Orders</a></li>
-                                        <li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-1">My Reviews <i class="ion-ios-arrow-down"></i></a>
+                                       <!--  <li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-1">My Reviews <i class="ion-ios-arrow-down"></i></a>
                                             <ul id="shop-catigory-1" class="panel-collapse collapse">
                                                 <li><a href="#">Reviews Product</a></li>
                                                 <li><a href="#">Testimoni</a></li>
                                             </ul>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -70,12 +70,12 @@
                                     <tbody>
                                         <?php foreach ($waiting as $i) : ?>
                                             <tr>
-                                                <td><?php echo $i['pemesanan_kode']; ?></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
+                                                <td><?= $i['pemesanan_kode']; ?></td>
+                                                <td class="text-center"><?= "Rp. ".number_format($i['pemesanan_total']); ?></td>
+                                                <td class="text-center"><?= date('d-m-Y',strtotime($i['pemesanan_tanggal'])); ?></td>
                                                 <td class="text-center">
                                                     <a href="" class="btn btn-primary">Bayar</a>
-                                                    <a href="" class="btn btn-danger">Batal</a>
+                                                    <a href="" class="btn btn-danger" data-target="#batalOrders<?= $i['pemesanan_kode']; ?>" data-toggle="modal">Batal</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -146,3 +146,34 @@
 </div>
 
 
+        <?php foreach($waiting as $i): ?>
+            <div class="modal fade text-left" id="batalOrders<?= $i['pemesanan_kode']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel34" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="myModalLabel34">Konfirmasi</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="<?php echo base_url()?>frontendc/batal_pemesanan" method="POST">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="hidden" name="pemesanan_kode" value="<?php echo $i['pemesanan_kode'];?>">
+                                            <label class="text-center">Anda yakin ingin membatalkan pesanan <b><?php echo $i['pemesanan_kode']; ?></b> ?</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
+                                <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
