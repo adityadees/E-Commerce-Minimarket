@@ -16,11 +16,17 @@
           <span class="menu-title" data-i18n="">Slider</span>
         </a>
       </li>
-      
+      <li class=" nav-item"><a href="#"><i class="ft-file"></i><span class="menu-title" data-i18n="">Kategori</span></a>
+        <ul class="menu-content">
+          <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/kategori">Kategori</a></li>
+          <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/subkategori">Sub-Kategori</a></li>
+          <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/list">List</a></li>
+        </ul>
+      </li>
       <li class=" nav-item"><a href="#"><i class="ft-file"></i><span class="menu-title" data-i18n="">Produk</span></a>
         <ul class="menu-content">
           <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/produk">Data Produk</a></li>
-          <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/kategori">Kategori</a></li>
+          <li class=""><a class="menu-item" href="<?php echo base_url();?>admin/promo">Promo</a></li>
         </ul>
       </li>
 

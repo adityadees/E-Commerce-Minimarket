@@ -135,11 +135,12 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Kategori Nama: </label>
-											<input type="text" placeholder="Kategoriname" name="kategori_nama" class="form-control" value="<?php echo $i['kategori_nama']; ?>" readonly="readonly">
+											<input type="text" placeholder="Kategoriname" name="kategori_nama" class="form-control" value="<?php echo $i['kategori_nama']; ?>" >
 											<input type="hidden" placeholder="Kategoriname" name="kategori_id" class="form-control" value="<?php echo $i['kategori_id']; ?>" readonly="readonly">
 										</div>
 									</div>
 								</div>
+
 
 								<div class="row">
 									<div class="col-md-12">
@@ -175,13 +176,13 @@
 							</button>
 						</div>
 						<form action="<?php echo base_url()?>BackendC/delete_kategori" method="POST">
-							<div class="modal-body bg-red">
+							<div class="modal-body bg-danger">
 
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="hidden" name="kategori_id" value="<?php echo $i['kategori_id'];?>">
-											<label class="text-center">Anda yakin ingin menghapus kategori <b><?php echo $i['kategori_nama']; ?></b> ?</label>
+											<label class="text-center text-white">Anda yakin ingin menghapus kategori <b><?php echo $i['kategori_nama']; ?></b> ?</label>
 										</div>
 									</div>
 

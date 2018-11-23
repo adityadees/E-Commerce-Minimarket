@@ -1,4 +1,6 @@
-$(function() {
+/*ajax mail js*/
+(function($) {
+	"use strict";
 
 	// Get the form.
 	var form = $('#contact-form');
@@ -45,4 +47,4 @@ $(function() {
 		});
 	});
 
-});
+})(jQuery);

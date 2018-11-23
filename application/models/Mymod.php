@@ -25,6 +25,14 @@ class Mymod extends CI_Model{
         return $res->result_array();
     }
 
+
+    public function order_by_rand($table){
+        $this->db->order_by('rand()');
+        $this->db->limit(1);
+        $res = $this->db->get($table);
+        return $res->row_array();
+    }
+
     public function CekDataRows($table,$where){
         $res=$this->db->get_where($table,$where);
         return $res;
@@ -68,4 +76,21 @@ class Mymod extends CI_Model{
         $res = $this->db->get();
         return $res;
     }
+
+
+    public function GetDataJoinNW($table){
+        $i=1;
+        foreach($table as $table_name=>$table_id){ 
+            ${'table'.$i}=$table_name;
+            ${'t'.$i.'id'}=$table_id;
+            $i++;
+        }
+
+        $this->db->select('*');
+        $this->db->from(''.$table1.' t1');
+        $this->db->join(''.$table2.' t2','t1.'.$t1id.'=t2.'.$t2id);
+        $res = $this->db->get();
+        return $res;
+    }
+
 }

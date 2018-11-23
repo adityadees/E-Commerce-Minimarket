@@ -1,217 +1,420 @@
 (function($) {
-    'use strict';
+    "use strict";
     
-    /*--
-    Menu Stick
-    -----------------------------------*/
-    var header = $('.transparent-bar');
-    var win = $(window);
-    
-    win.on('scroll', function() {
-        var scroll = win.scrollTop();
-        if (scroll < 200) {
-            header.removeClass('stick');
-        } else {
-            header.addClass('stick');
-        }
+    /*----------------------------
+       stickey menu
+    ----------------------------*/
+    $(window).on('scroll',function() {    
+           var scroll = $(window).scrollTop();
+           if (scroll < 100) {
+            $(".sticky-header").removeClass("sticky");
+           }else{
+            $(".sticky-header").addClass("sticky");
+           }
+    });
+
+    /*----------------------------
+    jQuery MeanMenu
+    ------------------------------ */
+    $('.mobile-menu nav').meanmenu({
+        meanScreenWidth: "9901",
+        meanMenuContainer: ".mobile-menu",
+        onePage: true,
     });
     
     
-    /* jQuery MeanMenu */
-    $('#mobile-menu-active').meanmenu({
-        meanScreenWidth: "991",
-        meanMenuContainer: ".mobile-menu-area .mobile-menu",
-    });
-    
-    /* Cart */
-    $(".language-click , .icon-cart , .icon-setting").on("click", function() {
-        $(this).parent().find('.language-dropdown , .shopping-cart-content , .setting-wrapper').slideToggle('medium');
-    })
-    
-    /* Slider active */
-    $('.slider-active').owlCarousel({
-        loop: true,
-        nav: true,
-        autoplay: false,
-        autoplayTimeout: 5000,
+    /* slider activation */
+    $('.slider_active').owlCarousel({
         animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        }
-    })
+        autoplay: true,
+		loop: true,
+        nav: false,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 1,
+        dots:true,
+    });
     
-    /* Best selling active */
-    $('.featured-product-active').owlCarousel({
-        loop: true,
+    /* small product activation */
+    $('.small_product_active').owlCarousel({
+        autoplay: true,
+		loop: true,
         nav: true,
         autoplay: false,
-        autoplayTimeout: 5000,
-        navText: ['<i class="ion-ios-arrow-back"></i>', '<i class="ion-ios-arrow-forward"></i>'],
-        item: 4,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 2
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 3
-            },
-            1100: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    })
+        autoplayTimeout: 8000,
+        items: 1,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+				nav:true
+			},
+			480:{
+				items:1,
+			},	
+			768:{
+				items:1,
+			},
+
+		  }
+    });
     
-    /* Best selling active */
-    $('.best-selling-active').owlCarousel({
-        loop: true,
+    /*  product activation */
+    $('.product_active').owlCarousel({
+        autoplay: true,
+		loop: true,
         nav: true,
         autoplay: false,
-        autoplayTimeout: 5000,
-        navText: ['<i class="ion-ios-arrow-back"></i>', '<i class="ion-ios-arrow-forward"></i>'],
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            992: {
-                items: 1
-            },
-            1100: {
-                items: 1
-            },
-            1200: {
-                items: 1
-            }
-        }
-    })
+        autoplayTimeout: 8000,
+        items: 4,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+				nav:true
+			},
+			480:{
+				items:2,
+			},	
+			992:{
+				items:3,
+			},
+            1200:{
+				items:4,
+			},
+
+		  }
+    });
     
-    /* Best selling active 2 */
-    $('.best-selling-active-2').owlCarousel({
-        loop: true,
-        nav: false,
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            992: {
-                items: 1
-            },
-            1100: {
-                items: 1
-            },
-            1200: {
-                items: 1
-            }
-        }
-    })
+  
     
-    /* Testimonial active */
-    $('.testimonial-active').owlCarousel({
-        loop: true,
-        nav: false,
+    /*  featured activation */
+    $('.featured_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
         autoplay: false,
-        autoplayTimeout: 5000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        }
-    })
+        autoplayTimeout: 8000,
+        items: 3,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+                nav:false,
+			},
+            480:{
+				items:2,
+			},
+			
+			1200:{
+				items:3,
+			},
+
+		  }
+		
+    });
     
-    /* Brand logo active */
-    $('.brand-logo-active').owlCarousel({
-        loop: true,
-        nav: false,
+    /*  featured two activation */
+    $('.featured_active_two ').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
         autoplay: false,
-        autoplayTimeout: 5000,
-        item: 5,
-        margin: 80,
-        responsive: {
-            0: {
-                items: 1,
-                margin: 0,
-            },
-            480: {
-                items: 2,
-                margin: 30,
-            },
-            768: {
-                items: 4,
-                margin: 30,
-            },
-            992: {
-                items: 4,
-                margin: 100,
-            },
-            1200: {
-                items: 5
-            }
-        }
-    })
+        autoplayTimeout: 8000,
+        items: 4,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+			
+			1200:{
+				items:4,
+			},
+
+		  }
+		
+    });
     
-    /*---------------------
-        Countdown
-    --------------------- */
-    $('[data-countdown]').each(function() {
-        var $this = $(this),
-            finalDate = $(this).data('countdown');
-        $this.countdown(finalDate, function(event) {
-            $this.html(event.strftime('<span class="cdown day">%-D <p>Days</p></span> <span class="cdown hour">%-H <p>Hour</p></span> <span class="cdown minutes">%M <p>Min</p></span class="cdown second"> <span>%S <p>Sec</p></span>'));
-        });
+    /*  featured three activation */
+    $('.featured_active_three ').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 3,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+        
+			768:{
+				items:3,
+			},
+
+		  }
+		
+    });
+     /*  featured activation */
+    $('.f_active_four').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 3,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+                nav:false,
+			},
+            480:{
+				items:2,
+			},
+            768:{
+				items:3,
+			},
+            992:{
+				items:2,
+			},
+            1200:{
+				items:3,
+			},
+
+		  }
+		
+    });
+    
+    /*  brand activation */
+    $('.brand_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 6,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:3,
+			},
+			768:{
+				items:4,
+			},	
+			992:{
+				items:5,
+			},
+            1200:{
+				items:6,
+			},
+
+		  }
+    });
+    
+     /*  brand two activation */
+    $('.brand_active_two').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 1,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+			768:{
+				items:1,
+			},	
+
+		  }
     });
     
     
-    /* Hover 3d init for tilt */
-    if ($('.tilter').length > 0) {
-        $('.tilter').tilt({
-            maxTilt: 40,
-            perspective: 800,
-            easing: "cubic-bezier(.03,.98,.52,.99)",
-            scale: 1,
-            speed: 800,
-            transition: true,
-        });
-    }
+    /*  blog activation */
+    $('.blog_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 4,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+				nav:true
+			},
+            480:{
+                items:2,
+            },
+			768:{
+				items:3,
+			},	
+			992:{
+				items:4,
+			},
+
+		  }
+    });
     
+    /*  blog two activation */
+    $('.blog_active_two').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 1,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+         responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+			768:{
+				items:1,
+			},	
+
+		  }
+    });
+    
+    /*  blog two activation */
+    $('.categorie_banner_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 6,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+         responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:3,
+			},
+            768:{
+				items:4,
+			},
+            992:{
+				items:5,
+			},
+			1200:{
+				items:6,
+			},	
+
+		  }
+    });
+    
+     /*  blog thumb activation */
+    $('.blog_thumb_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 1,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        dots:true,
+    });
+    
+    
+    
+     /*  details_s_product_active activation */
+    $('.details_s_product_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 6,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+         responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+            768:{
+				items:3,
+			},
+            992:{
+				items:4,
+			},
+			1200:{
+				items:5,
+			},	
+
+		  }
+    });
+    
+    
+    
+     /*  product fullwidth active activation */
+    $('.product_fullwidth_active').owlCarousel({
+        autoplay: true,
+		loop: true,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: 4,
+        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+         responsiveClass:true,
+		responsive:{
+			0:{
+				items:1,
+			},
+            480:{
+				items:2,
+			},
+            768:{
+				items:4,
+			},
+
+		  }
+    });
+    
+    
+    
+    /*wow activation*/
+    new WOW().init();
+    
+
     /*--------------------------
-        ScrollUp
+     ScrollUp
     ---------------------------- */
     $.scrollUp({
         scrollText: '<i class="fa fa-angle-double-up"></i>',
@@ -219,235 +422,130 @@
         scrollSpeed: 900,
         animation: 'fade'
     });
+	
     
-    /*---------------------
-        Price slider
-    --------------------- */
-    var sliderrange = $('#slider-range');
-    var amountprice = $('#amount');
-    $(function() {
-        sliderrange.slider({
-            range: true,
-            min: 0,
-            max: 1200,
-            values: [300, 800],
-            slide: function(event, ui) {
-                amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+    /*header currencu,languages slideToggle*/
+    
+    $(".currency").on("click", function() {
+        $('.dropdown_currency').slideToggle('medium');
+    });
+    
+    
+    $(".languages").on("click", function() {
+            $('.dropdown_languages').slideToggle('medium');
+    }); 
+    
+    /*categories slideToggle*/
+    
+    $(".categori_toggle").on("click", function() {
+            $('.categories_menu_inner').slideToggle('medium');
+    }); 
+    
+    
+    /*mini cart slideToggle*/
+    $(".shopping_cart a").on("click", function() {
+            $('.mini_cart').slideToggle('medium');
+    }); 
+    
+    
+    
+    /*------addClass/removeClass-------*/
+   $(".categories_menu_inner > ul > li > a, #cat_toggle.has-sub > a").on("click", function() {
+        $(this).removeAttr('href');
+        $(this).toggleClass('open').next('.categories_mega_menu,.categorie_sub').toggleClass('open');
+        $(this).parents().siblings().find('.categories_mega_menu,#cat_toggle.has-sub > a').removeClass('open');
+    });
+
+    $('body').on('click', function (e) {
+        var target = e.target;
+        if (!$(target).is('.categories_menu_inner > ul > li > a') ) {
+            $('.categories_mega_menu').removeClass('open');
+        }
+    });
+
+	
+	
+    /*niceSelect*/
+     $('select').niceSelect();
+    
+    
+	
+    /*countdown activation*/
+		
+	 $('[data-countdown]').each(function() {
+		var $this = $(this), finalDate = $(this).data('countdown');
+		$this.countdown(finalDate, function(event) {
+		$this.html(event.strftime('<div class="product_countdown"><div class="single_countdown"><div class="countdown_number">%D</div><div class="countdown_title">Days</div></div><div class="single_countdown"><div class="countdown_number">%H</div><div class="countdown_title">hrs</div></div><div class="single_countdown"><div class="countdown_number">%M</div><div class="countdown_title">mins</div></div><div class="single_countdown"><div class="countdown_number">%S</div><div class="countdown_title">secs</div></div></div>'));
+       });
+	});	
+	
+
+    
+      /*----------------------------
+    	slider-range here
+    ------------------------------ */
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 0, 500 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    
+    
+    
+    
+    /*magnificPopup activation*/
+    
+    $('.view_large_img,.port_popup').magnificPopup({
+       type: 'image',
+        gallery:{
+        enabled:true,
+      }
+    });
+    $('.view_large_video').magnificPopup({
+      type: 'iframe',
+      mainClass: 'mfp-fade',
+      removalDelay: 160,
+      preloader: false,
+      zoom: {
+          enabled: true,
+      }
+    });
+
+    
+    $('.portfolio_gallery').imagesLoaded( function() {
+        // init Isotope
+        var $grid = $('.portfolio_gallery').isotope({
+           itemSelector: '.gird_item',
+            percentPosition: true,
+            masonry: {
+                columnWidth: '.gird_item'
             }
         });
-        amountprice.val("$" + sliderrange.slider("values", 0) +
-            " - $" + sliderrange.slider("values", 1));
+            
+        // filter items on button click
+        $('.portfolio_tab_button').on( 'click', 'button', function() {
+          var filterValue = $(this).attr('data-filter');
+          $grid.isotope({ filter: filterValue });
+            
+           $(this).siblings('.active').removeClass('active');
+           $(this).addClass('active');
+        });
     });
+
     
-    /*---------------------
-        Product dec slider
-    --------------------- */
-    $('.product-dec-slider').slick({
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        centerPadding: '60px',
-        prevArrow: '<span class="product-dec-icon product-dec-prev"><i class="fa fa-angle-left"></i></span>',
-        nextArrow: '<span class="product-dec-icon product-dec-next"><i class="fa fa-angle-right"></i></span>',
-        responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 479,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    });
     
-    /*------ Wow Active ----*/
-    new WOW().init();
-    
-    /* counterUp */
-    $('.count').counterUp({
+    /*counterup activation*/
+    $('.counter_number').counterUp({
         delay: 10,
         time: 1000
     });
     
-    /*----------------------------
-    	Cart Plus Minus Button
-    ------------------------------ */
-    var CartPlusMinus = $('.cart-plus-minus');
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
-    $(".qtybutton").on("click", function() {
-        var $button = $(this);
-        var oldValue = $button.parent().find("input").val();
-        if ($button.text() === "+") {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 1;
-            }
-        }
-        $button.parent().find("input").val(newVal);
-    });
-    
-    /*-------------------------------------
-        Thumbnail Product activation
-    --------------------------------------*/
-    $('.thumb-menu').owlCarousel({
-        loop: true,
-        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-        margin: 15,
-        smartSpeed: 1000,
-        nav: true,
-        dots: false,
-        responsive: {
-            0: {
-                items: 3,
-                autoplay: true,
-                smartSpeed: 300
-            },
-            768: {
-                items: 3
-            },
-            1000: {
-                items: 3
-            }
-        }
-    })
-    $('.thumb-menu a').on('click', function () {
-        $('.thumb-menu a').removeClass('active');
-    })
-    
-    
-    /*---------------------
-    shop grid list
-    --------------------- */
-    $('.view-mode li a').on('click', function() {
-        var $proStyle = $(this).data('view');
-        $('.view-mode li').removeClass('active');
-        $(this).parent('li').addClass('active');
-        $('.product-view').removeClass('product-grid product-list').addClass($proStyle);
-    })
-    
-    /* blog gallery slider */
-    $('.blog-gallery-slider').owlCarousel({
-        loop: true,
-        nav: true,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        navText:['<i class="ion-chevron-left"></i>','<i class="ion-chevron-right"></i>'],
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        }
-    })
-    
-    /* isotop active */
-    // filter items on button click
-    $('.blog-area').imagesLoaded(function() {
-        $('.portfolio-menu-active').on('click', 'button', function() {
-            var filterValue = $(this).attr('data-filter');
-            $grid.isotope({
-                filter: filterValue
-            });
-        });
-        // init Isotope
-        var $grid = $('.blog-grid').isotope({
-            itemSelector: '.blog-grid-item',
-            percentPosition: true,
-            masonry: {
-                // use outer width of grid-sizer for columnWidth
-                columnWidth: '.blog-grid-item',
-            }
-        });
-    });
-    
-    /*--------------------------
-        Product Zoom
-	---------------------------- */
-    $(".zoompro").elevateZoom({
-        gallery: "gallery",
-        galleryActiveClass: "active",
-        zoomWindowWidth: 300,
-        zoomWindowHeight: 100,
-        scrollZoom: false,
-        zoomType: "inner",
-        cursor: "crosshair"
-    });
-    
-    
-    $('.testimonial-2-active').owlCarousel({
-        loop: true,
-        margin:20,
-        nav:true,
-        navText: [ '<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>' ],
-        items:2,
-        responsive:{
-            0:{
-                items:1
-            },
-            600:{
-                items:1
-            },
-            800:{
-                items:1
-            },
-            992:{
-                items:2
-            },
-            1024:{
-                items:2
-            },
-            1200:{
-                items:2
-            },
-            1400:{
-                items:2
-            },
-            1920:{
-                items:2
-            }
-        }
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 
 })(jQuery);

@@ -12,15 +12,31 @@ class FrontendC extends CI_Controller{
 		$prod = $this->Mymod->ViewData('produk');
 		$kat = $this->Mymod->ViewData('kategori');
 		$slide = $this->Mymod->ViewData('slider');
+		$promo = $this->Mymod->ViewData('promo');
+
+
+		$jtable=[
+			'promo' => 'produk_kode',
+			'produk' => 'produk_kode'
+		];
+
+		$promo = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$shoprand = $this->Mymod->order_by_rand('kategori');
+
 		$x['produk'] = $prod;
+		$xx['produk'] = $prod;
+		$x['shoprand'] = $shoprand;
 		$x['kategori'] = $kat;
-		$z['slider'] = $slide;
+		$x['slider'] = $slide;
+		$x['promo'] = $promo;
+
+
+
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
-		$this->load->view('frontend/slider/slider',$z);
+		$this->load->view('frontend/slider/slider');
 		$this->load->view('frontend/index',$x);
-		$this->load->view('frontend/layout/footer');
+		$this->load->view('frontend/layout/footer',$xx);
 
 	}
 	public function cart()
@@ -42,7 +58,6 @@ class FrontendC extends CI_Controller{
 		}
 		$y['title']='Cart';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/myaccount/cart',$x);
 		$this->load->view('frontend/layout/footer');
 
@@ -76,7 +91,6 @@ class FrontendC extends CI_Controller{
 		}
 		$y['title']='Cart';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/myaccount/checkout',$x);
 		$this->load->view('frontend/layout/footer');
 
@@ -93,7 +107,6 @@ class FrontendC extends CI_Controller{
 		$x['produk'] = $prod;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/produk/produk_detail',$x);
 		$this->load->view('frontend/layout/footer');
 	}
@@ -102,7 +115,6 @@ class FrontendC extends CI_Controller{
 	public function register(){
 		$y['title']='Register';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/form/register');
 		$this->load->view('frontend/layout/footer');
 	}
@@ -110,7 +122,6 @@ class FrontendC extends CI_Controller{
 	public function login(){
 		$y['title']='Login';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/form/login');
 		$this->load->view('frontend/layout/footer');
 	}
@@ -126,7 +137,6 @@ class FrontendC extends CI_Controller{
 		];
 		$x['waiting'] = $waiting = $this->Mymod->ViewDataWhere($table,$where);
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/myaccount/myorders',$x);
 		$this->load->view('frontend/layout/footer');
 	}
@@ -138,7 +148,6 @@ class FrontendC extends CI_Controller{
 		$x['kategori'] = $kat;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/produk/produk',$x);
 		$this->load->view('frontend/layout/footer');	
 	}
@@ -146,7 +155,6 @@ class FrontendC extends CI_Controller{
 	public function contactus(){
 		$y['title']='Contact Us';
 		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/layout/topbar');
 		$this->load->view('frontend/contact/contactus');
 		$this->load->view('frontend/layout/footer');		
 	}
@@ -160,7 +168,6 @@ class FrontendC extends CI_Controller{
 			$user = $this->Mymod->ViewDetail($table,$where,$data);
 			$x['user'] = $user;
 			$this->load->view('frontend/layout/header',$y);
-			$this->load->view('frontend/layout/topbar');
 			$this->load->view('frontend/myaccount/myaccount',$x);
 			$this->load->view('frontend/layout/footer');	
 		}
@@ -174,7 +181,6 @@ class FrontendC extends CI_Controller{
 			$user = $this->Mymod->ViewDetail($table,$where,$data);
 			$x['user'] = $user;
 			$this->load->view('frontend/layout/header',$y);
-			$this->load->view('frontend/layout/topbar');
 			$this->load->view('frontend/myaccount/myprofil',$x);
 			$this->load->view('frontend/layout/footer');	
 		}

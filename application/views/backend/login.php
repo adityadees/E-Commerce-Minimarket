@@ -33,7 +33,7 @@ data-open="click" data-menu="vertical-menu" data-col="1-column">
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <div class="p-1">
-                      <img src="<?php echo base_url();?>assets/backend/images/logo/new.png" width="132px" height="142" alt="branding logo">
+                      <img src="<?php echo base_url();?>assets/frontend/assets/img/logo/logo.png" width="400px" height="142" alt="branding logo">
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">

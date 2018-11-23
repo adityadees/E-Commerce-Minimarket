@@ -22,15 +22,38 @@ class BackendC extends CI_Controller{
 	
 	public function produk()
 	{
-		$prod = $this->Mymod->ViewData('produk');
-		$kat = $this->Mymod->ViewData('kategori');
+
+		$jtable=[
+			'produk' => 'list_id',
+			'list' => 'list_id'
+		];
+		$prod = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$list_data = $this->Mymod->ViewData('list');
 		$x['produk'] = $prod;
-		$x['kategori'] = $kat;
+		$x['datalist'] = $list_data;
 		$y['title']='Produk';
 		$this->load->view('backend/layout/header',$y);
 		$this->load->view('backend/layout/topbar');
 		$this->load->view('backend/layout/sidebar');
 		$this->load->view('backend/produk/produk',$x);
+		$this->load->view('backend/layout/footer');
+	}
+	public function promo()
+	{
+
+		$jtable=[
+			'produk' => 'produk_kode',
+			'promo' => 'produk_kode'
+		];
+		$promo = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$produk = $this->Mymod->ViewData('produk');
+		$x['promo'] = $promo;
+		$x['produk'] = $produk;
+		$y['title']='Produk';
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/layout/topbar');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/produk/promo',$x);
 		$this->load->view('backend/layout/footer');
 	}
 	public function rekening()
@@ -54,6 +77,46 @@ class BackendC extends CI_Controller{
 		$this->load->view('backend/layout/topbar');
 		$this->load->view('backend/layout/sidebar');
 		$this->load->view('backend/produk/kategori',$x);
+		$this->load->view('backend/layout/footer');
+	}
+	public function subkategori()
+	{
+
+		$jtable=[
+			'kategori' => 'kategori_id',
+			'sub_kategori' => 'kategori_id'
+		];
+
+		$kategori = $this->Mymod->ViewData('kategori');
+
+		$data = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$x['subkategori'] = $data;
+		$x['kategori'] = $kategori;
+		$y['title']='Sub-Kategori';
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/layout/topbar');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/produk/sub_kategori',$x);
+		$this->load->view('backend/layout/footer');
+	}
+	public function list()
+	{
+
+		$jtable=[
+			'list' => 'sk_id',
+			'sub_kategori' => 'sk_id'
+		];
+
+		$subkategori = $this->Mymod->ViewData('sub_kategori');
+
+		$data = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$x['listdata'] = $data;
+		$x['subkategori'] = $subkategori;
+		$y['title']='List';
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/layout/topbar');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/produk/list',$x);
 		$this->load->view('backend/layout/footer');
 	}
 
@@ -202,7 +265,7 @@ class BackendC extends CI_Controller{
 		redirect('admin/user');
 	}		
 
-	public function save_kategori(){
+	function save_kategori(){
 		$kategori_nama=$this->input->post('kategori_nama');
 		$keterangan=$this->input->post('keterangan');
 
@@ -214,7 +277,54 @@ class BackendC extends CI_Controller{
 		];
 		$rd=$this->Mymod->insertData($table,$data);
 		$this->session->set_flashdata('success', 'Berhasil menambah '.$title);
-		redirect('admin/user');
+		redirect('admin/kategori');
+	}	
+	function save_promo(){
+		$produk_kode=$this->input->post('produk_kode');
+		$promo_diskon=$this->input->post('promo_diskon');
+		$promo_start=$this->input->post('promo_start');
+		$promo_end=$this->input->post('promo_end');
+
+		$title='Promo';
+		$table='promo';
+		$data=[
+			'produk_kode'=>$produk_kode,
+			'promo_diskon'=>$promo_diskon,
+			'promo_start'=>$promo_start,
+			'promo_end'=>$promo_end
+		];
+		$rd=$this->Mymod->insertData($table,$data);
+		$this->session->set_flashdata('success', 'Berhasil menambah '.$title);
+		redirect('admin/promo');
+	}	
+	function save_subkategori(){
+		$sk_nama=$this->input->post('sk_nama');
+		$kategori_id=$this->input->post('kategori_id');
+
+		$title='Sub-Kategori';
+		$table='sub_kategori';
+		$data=[
+			'sk_nama'=>$sk_nama,
+			'kategori_id'=>$kategori_id
+		];
+		$rd=$this->Mymod->insertData($table,$data);
+		$this->session->set_flashdata('success', 'Berhasil menambah '.$title);
+		redirect('admin/subkategori');
+	}	
+
+	function save_list(){
+		$list_nama=$this->input->post('list_nama');
+		$sk_id=$this->input->post('sk_id');
+
+		$title='List';
+		$table='list';
+		$data=[
+			'list_nama'=>$list_nama,
+			'sk_id'=>$sk_id
+		];
+		$rd=$this->Mymod->insertData($table,$data);
+		$this->session->set_flashdata('success', 'Berhasil menambah '.$title);
+		redirect('admin/list');
 	}	
 
 
@@ -247,6 +357,70 @@ class BackendC extends CI_Controller{
 		$this->Mymod->DeleteData($table,$where);
 		$this->session->set_flashdata('success', 'Berhasil menghapus data '.$title);
 		redirect('admin/kategori');
+	}		
+
+
+	function edit_list(){
+		$list_nama=$this->input->post('list_nama');
+		$sk_id=$this->input->post('sk_id');
+		$list_id=$this->input->post('list_id');
+		$title = 'List';
+		$table='list';
+		$data=[
+			'list_nama'=>$list_nama,
+			'sk_id'=>$sk_id
+		];
+		$where =[ 
+			'list_id' => $list_id
+		];
+		$this->Mymod->UpdateData($table,$data,$where);
+		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+		redirect('admin/list');		
+	}
+
+	function delete_list(){
+		$title = 'List';
+		$list_id=$this->input->post('list_id');
+		$table='list';
+
+		$where = [
+			'list_id' => $list_id
+		];
+		$this->Mymod->DeleteData($table,$where);
+		$this->session->set_flashdata('success', 'Berhasil menghapus data '.$title);
+		redirect('admin/list');
+	}		
+
+
+	function edit_subkategori(){
+		$sk_nama=$this->input->post('sk_nama');
+		$sk_id=$this->input->post('sk_id');
+		$kategori_id=$this->input->post('kategori_id');
+		$title = 'Sub-Kategori';
+		$table='sub_kategori';
+		$data=[
+			'sk_nama'=>$sk_nama,
+			'kategori_id'=>$kategori_id
+		];
+		$where =[ 
+			'sk_id' => $sk_id
+		];
+		$this->Mymod->UpdateData($table,$data,$where);
+		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+		redirect('admin/subkategori');		
+	}
+
+	function delete_subkategori(){
+		$title = 'Sub-Kategori';
+		$sk_id=$this->input->post('sk_id');
+		$table='sub_kategori';
+
+		$where = [
+			'sk_id' => $sk_id
+		];
+		$this->Mymod->DeleteData($table,$where);
+		$this->session->set_flashdata('success', 'Berhasil menghapus data '.$title);
+		redirect('admin/subkategori');
 	}		
 
 	public function save_slider(){
@@ -384,7 +558,7 @@ class BackendC extends CI_Controller{
 		$produk_kode=$this->input->post('produk_kode');
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
-		$produk_kategori=$this->input->post('produk_kategori');
+		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
 		$title='produk';
@@ -405,7 +579,7 @@ class BackendC extends CI_Controller{
 				$data = [
 					'produk_kode' => $produk_kode,
 					'produk_nama' => $produk_nama,
-					'kategori_id' => $produk_kategori,
+					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 					'produk_gambar' => $produk_gambar
@@ -424,7 +598,7 @@ class BackendC extends CI_Controller{
 				$data =[ 
 					'produk_kode' => $produk_kode,
 					'produk_nama' => $produk_nama,
-					'kategori_id' => $produk_kategori,
+					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 				];
@@ -441,7 +615,7 @@ class BackendC extends CI_Controller{
 			$data = [
 				'produk_kode' => $produk_kode,
 				'produk_nama' => $produk_nama,
-				'kategori_id' => $produk_kategori,
+				'list_id' => $list_id,
 				'produk_harga' => $produk_harga,
 				'produk_ket' => $keterangan,
 			];
@@ -530,7 +704,7 @@ class BackendC extends CI_Controller{
 		$produk_kode=$this->input->post('produk_kode');
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
-		$produk_kategori=$this->input->post('produk_kategori');
+		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
 		$title='produk';
@@ -555,7 +729,7 @@ class BackendC extends CI_Controller{
 				$produk_gambar = $uploadData['file_name'];
 				$data = [
 					'produk_nama' => $produk_nama,
-					'kategori_id' => $produk_kategori,
+					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 					'produk_gambar' => $produk_gambar
@@ -590,7 +764,7 @@ class BackendC extends CI_Controller{
 			$data = [
 				'produk_kode' => $produk_kode,
 				'produk_nama' => $produk_nama,
-				'kategori_id' => $produk_kategori,
+				'list_id' => $list_id,
 				'produk_harga' => $produk_harga,
 				'produk_ket' => $keterangan,
 			];
