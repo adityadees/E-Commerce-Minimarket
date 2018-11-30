@@ -25,6 +25,13 @@ class Mymod extends CI_Model{
         return $res->result_array();
     }
 
+    public function ViewDataRows($table){
+        $res=$this->db->get($table);
+        return $res->num_rows();
+    }
+    public function data($table,$number,$offset){
+        return $query = $this->db->get('produk',$number,$offset)->result_array();      
+    }
 
     public function order_by_rand($table){
         $this->db->order_by('rand()');
@@ -92,5 +99,7 @@ class Mymod extends CI_Model{
         $res = $this->db->get();
         return $res;
     }
+
+
 
 }

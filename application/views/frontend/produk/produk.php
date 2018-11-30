@@ -1,185 +1,457 @@
-    <div class="breadcrumb-area gray-bg">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <ul>
-                    <li><a href="<?= base_url();?>">Home</a></li>
-                    <li class="active">Produk </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="shop-page-area pt-75 pb-75">
-        <div class="container">
-            <div class="row flex-row-reverse">
-                <div class="col-lg-9">
-                    <div class="banner-area pb-30">
-                        <a href="product-details.html"><img alt="" src="assets/img/banner/banner-49.jpg"></a>
-                    </div>
-                    <div class="shop-topbar-wrapper">
-                        <div class="shop-topbar-left">
-                            <ul class="view-mode">
-                                <li class="active"><a href="#product-grid" data-view="product-grid"><i class="fa fa-th"></i></a></li>
-                                <li><a href="#product-list" data-view="product-list"><i class="fa fa-list-ul"></i></a></li>
-                            </ul>
-                            <p>Showing 1 - 20 of 30 results  </p>
-                        </div>
-                        <div class="product-sorting-wrapper">
-                            <div class="product-shorting shorting-style">
-                                <label>View:</label>
-                                <select>
-                                    <option value=""> 20</option>
-                                    <option value=""> 23</option>
-                                    <option value=""> 30</option>
-                                </select>
-                            </div>
-                            <div class="product-show shorting-style">
-                                <label>Sort by:</label>
-                                <select>
-                                    <option value="">Default</option>
-                                    <option value=""> Name</option>
-                                    <option value=""> price</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid-list-product-wrapper">
-                        <div class="product-grid product-view pb-20">
-                            <div class="row">
 
-                                <?php foreach ($produk as $prod) :?>
-                                    <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
-                                        <div class="product-wrapper">
-                                            <div class="product-img">
-                                                <a href="<?= base_url();?>produk/detail/<?= $prod['produk_kode'];?>" >
-                                                    <img alt="" src="<?= base_url().'assets/images/'.$prod['produk_gambar'];?>">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a class="action-compare" href="#" data-target="#modalProd<?= $prod['produk_kode']; ?>" data-toggle="modal" title="Quick View">
-                                                        <i class="icon-magnifier-add"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product-content text-center">
-                                                <h4>
-                                                    <a href="<?= base_url().'produk/detail/'.$prod['produk_kode'];?>"><?= $prod['produk_nama']; ?></a>
-                                                </h4>
-                                                <div class="product-price-wrapper">
-                                                    <span><?= "Rp. ".number_format($prod['produk_harga']); ?></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-details">
-                                                <h4>
-                                                    <a href="product-details.html"><?= $prod['produk_nama']; ?></a>
-                                                </h4>
-                                                <div class="product-price-wrapper">
-                                                    <span><?= "Rp. ".number_format($prod['produk_harga']); ?></span>
-                                                </div>
-                                                <p><?= $prod['produk_ket']; ?></p>
-                                                <div class="shop-list-cart-wishlist">
-                                                    <a href="#" title="Add To Cart"><i class="icon-handbag"></i></a>
-                                                    <a href="#" data-target="#modalProd<?= $prod['produk_kode']; ?>" data-toggle="modal" title="Quick View">
-                                                        <i class="icon-magnifier-add"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <div class="pagination-total-pages">
-                            <div class="pagination-style">
-                                <ul>
-                                    <li><a class="prev-next prev" href="#"><i class="ion-ios-arrow-left"></i> Prev</a></li>
-                                    <li><a class="active" href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">...</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a class="prev-next next" href="#">Next<i class="ion-ios-arrow-right"></i> </a></li>
-                                </ul>
-                            </div>
-                            <div class="total-pages">
-                                <p>Showing 1 - 20 of 30 results  </p>
-                            </div>
-                        </div>
-                    </div>
+<br>
+<div class="categorie_details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="sidebar_categorie_area">
+              
+                <div class="product_banner product_banner_shop fix mb-30">
+                    <a href="#"><img src="assets/img/banner/banner1.jpg" alt=""></a>
                 </div>
-                <div class="col-lg-3">
-                    <div class="shop-sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
+                <div class="top_sellers top_seller_two featured mb-40">
+                    <div class="top_title">
+                        <h2> Bestseller</h2>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <?php foreach($produk as $prod) : ?>
-        <div class="modal fade" id="modalProd<?= $prod['produk_kode']; ?>" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="<?= base_url();?>frontendc/addtocart" method="POST" name="cartForm">
-                            <div class="row">
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <span class="gpanel btn btn-primary" id="m2">-15%</span>
-                                    <div class="tab-content">
-                                        <div id="pro-1" class="tab-pane fade show active">
-                                            <img src="<?= base_url().'assets/images/'.$prod['produk_gambar']; ?>" alt="">
-                                        </div>
+                    <div class="small_product_active owl-carousel">
+                        <div class="small_product_item">
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart13.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
                                     </div>
                                 </div>
-                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                    <div class="modal-pro-content">
-                                        <h3><?= $prod['produk_nama']; ?></h3>
-                                        <input type="hidden" name="produk_kode" value="<?= $prod['produk_kode'];?>">
-                                        <div class="product-price-wrapper">
-                                            <span class="gpanel" id="m1"><?= "Rp. ".number_format($prod['produk_harga']); ?></span>
-                                            <span class="gpanel" id="m2"><?= "Rp. ".number_format($prod['produk_harga']-(($prod['produk_harga']*15)/100)); ?></span>
-                                            <span class="product-price-old gpanel" id="m2"><?= "Rp. ".number_format($prod['produk_harga']); ?></span>
-                                        </div>
-                                        <p><?= $prod['produk_ket']; ?></p>    
-                                        <div class="quick-view-select">
-                                            <div class="select-option-part">
-                                                <label>Ukuran</label>
-                                                <select class="select sectionChooser" name="ukuran" data-id="<?= $prod['produk_kode']; ?>" id="sectionChooser<?= $prod['produk_kode']; ?>">
-                                                    <option value="m1">1 Papan</option>
-                                                    <option value="m2">2 Papan</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qty" value="1">
-                                            </div>
-                                            <button type="submit" >Add to cart</button>
-                                        </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Printed Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart1.jpg" alt=""></a>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Faded T-shirt</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart2.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
+                                    </div>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Printed Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart3.jpg" alt=""></a>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Summer Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart5.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
+                                    </div>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Short T-shirt</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="small_product_item">
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart4.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
+                                    </div>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Printed Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart10.jpg" alt=""></a>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Faded T-shirt</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart8.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
+                                    </div>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Printed  Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart7.jpg" alt=""></a>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Summer Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small_product">
+                                <div class="small_product_thumb">
+                                    <a href="single-product.html"><img src="assets/img/cart/cart8.jpg" alt=""></a>
+                                    <div class="product_discount">
+                                        <span>-10%</span>
+                                    </div>
+                                </div>
+                                <div class="small_product_content">
+                                    <div class="samll_product_ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="small_product_name">
+                                        <a title="Printed Summer Dress" href="single-product.html">Printed  Dress</a>
+                                    </div>
+                                    <div class="small_product_price">
+                                        <span class="new_price"> $27.00 </span>
+                                        <span class="old_price">  $30.50  </span>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>  
                     </div>
                 </div>
             </div>
         </div>
-    <?php endforeach; ?>
+        <div class="col-lg-9 col-md-8">
+            <div class="categorie_d_right">
+                <div class="categorie_product_toolbar mb-30">
+                    <div class="categorie_product_button">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a data-toggle="tab" href="#large" role="tab" aria-controls="large" aria-selected="true"><i class="fa fa-th-large"></i></a>
+                            </li>
+                            <li>
+                                <a class="active" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false"><i class="fa fa-th-list"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade " id="large" role="tabpanel">
+                        <div class="row cate_tab_product">
+                            <?php 
+                            $tgl=date("Y-m-d h:i:s");
+                            foreach ($produk as $prod) :
+
+                                $jtable=[
+                                    'promo' => 'produk_kode',
+                                    'produk' => 'produk_kode'
+                                ];
+                                $where=[
+                                    't1.promo_start <='=>$tgl,
+                                    't1.promo_end >'=>$tgl,
+                                    't2.produk_kode'=>$prod['produk_kode'],
+                                ];
+                                $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                                $gprom = $promo->row_array();
+                                $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                                ?>
 
 
-<script src="<?php echo base_url();?>assets/frontend/assets/js/vendor/jquery-1.12.0.min.js"></script>
-    
-    <script type="text/javascript">
-      $('.select').change(function() {
-          var myID = $(this).val();
-          var dataID = $(this).attr('data-id');
-          $('#modalProd'+dataID+' .gpanel').each(function() {
-           (myID === $(this).attr('id')) ? $(this).show() : $(this).hide();
-       });
-      });
-  </script>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="single_product categorie">
+                                        <div class="product_thumb">
+                                          <a href="<?= base_url().'produk/detail/'.$prod['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$prod['produk_gambar'];?>" alt="" style="width: 300px; height:300px;"></a>
+                                          <?php if($promo->row_array() > 0 ) {?>
+                                            <div class="product_discount">
+                                                <span>- <?= $gprom['promo_diskon']."%"; ?></span>
+                                            </div>
+                                        <?php } else {} ?>
+                                        <div class="product_action">
+                                            <form action="<?= base_url();?>frontendc/addtocart" method="POST" name="cartForm">
+                                                <input type="hidden" name="produk_kode" value="<?= $prod['produk_kode'];?>">
+                                                <input type="hidden" name="qty" value="1">
+                                                <div class="product_action">
+                                                    <ul>
+                                                        <?php if(isset($_SESSION['logged_in_user'])) {
+                                                            ?>
+                                                            <li><button class="btn  btn-primary" type="submit"><i class="fa fa-shopping-cart"></i></button></li>
+
+                                                        <?php  } else {} ?>
+                                                    </ul>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="quick_view">
+                                            <a href="#" data-toggle="modal" data-target="#modal_box<?= $prod['produk_kode'];?>" title="Quick view"><i class="fa fa-search"></i></a>
+                                        </div>
+
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="small_product_name">
+                                            <a title="<?= $prod['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$prod['produk_kode'];?>"> <?= $prod['produk_nama']; ?> </a>
+                                        </div>
+                                        <div class="small_product_price">
+                                           <?php if($promo->row_array() > 0 ) {?>
+                                            <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                                            <span class="old_price"> <?= "Rp. ".number_format($prod['produk_harga']); ?> </span>
+                                        <?php } else { ?>
+
+                                            <span class="new_price"> <?= "Rp. ".number_format($prod['produk_harga']); ?> </span>
+
+                                        <?php } ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div>  
+            </div>
+            <div class="tab-pane fade show active" id="list" role="tabpanel">
+                <?php 
+                $tgl=date("Y-m-d h:i:s");
+                foreach ($produk as $prod) :
+
+                    $jtable=[
+                        'promo' => 'produk_kode',
+                        'produk' => 'produk_kode'
+                    ];
+                    $where=[
+                        't1.promo_start <='=>$tgl,
+                        't1.promo_end >'=>$tgl,
+                        't2.produk_kode'=>$prod['produk_kode'],
+                    ];
+                    $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                    $gprom = $promo->row_array();
+                    $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                    ?>
+
+                    <div class="single_product categorie">   
+                        <div class="row cate_tab_product">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product_thumb">
+                                    <a href="<?= base_url().'produk/detail/'.$prod['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$prod['produk_gambar'];?>" alt="" style="width: 300px; height:300px;"></a>
+                                    <?php if($promo->row_array() > 0 ) {?>
+                                        <div class="product_discount">
+                                            <span>- <?= $gprom['promo_diskon']."%"; ?></span>
+                                        </div>
+                                    <?php } else {} ?>
+                                    <div class="quick_view categorie_view">
+                                        <a href="#" data-toggle="modal" data-target="#modal_box<?= $prod['produk_kode']; ?>" title="Quick view"><i class="fa fa-search"></i></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-6 col-sm-6">
+                                <div class="product_content">
+                                    <div class="small_product_name categorie_name">
+                                        <a title="<?= $prod['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$prod['produk_kode'];?>"> <?= $prod['produk_nama']; ?> </a>
+                                    </div>
+                                    <div class="small_product_price categorie_prie mb-10">
+                                        <?php if($promo->row_array() > 0 ) {?>
+                                            <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                                            <span class="old_price"> <?= "Rp. ".number_format($prod['produk_harga']); ?> </span>
+                                        <?php } else { ?>
+
+                                            <span class="new_price"> <?= "Rp. ".number_format($prod['produk_harga']); ?> </span>
+
+                                        <?php } ?>
+
+                                    </div>
+                                    <div class="single__product_drsc">
+                                        <p><?= readmore($prod['produk_ket']); ?></p>
+                                    </div>
+                                          <!--   <div class="product_action action_categorie mb-10">
+                                                <ul>
+                                                    <li><a href="#" title=" Add to cart "></a></li>
+                                                </ul>
+                                            </div> -->
+                                            <div class="product_in_stock">
+
+                                                <form action="<?= base_url();?>frontendc/addtocart" method="POST" name="cartForm">
+                                                    <?php if(isset($_SESSION['logged_in_user'])) {
+                                                        ?>
+                                                        <input type="hidden" name="produk_kode" value="<?= $prod['produk_kode'];?>">
+                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                                    <?php } else { ?>
+                                                        <button type="submit" disabled="disabled"  class="btn btn-primary"><i class="fa fa-shopping-cart"></i> dd to cart</button>
+                                                        <span class="text-danger">*Anda harus login terlebih dahulu</span>
+                                                        <?php 
+                                                    } 
+                                                    ?>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div> 
+                        <?php endforeach; ?>
+
+                        
+                    </div>
+                </div>
+     <!--            
+                <div class="page_numbers_toolbar">
+                    <ul>
+                        <li><a class="current_page" href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a class="next_page" href="#">next</a></li>
+                    </ul>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>

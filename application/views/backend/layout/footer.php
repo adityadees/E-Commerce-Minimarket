@@ -23,7 +23,6 @@
 
   <script src="<?php echo base_url();?>assets/backend/vendors/js/forms/toggle/bootstrap-checkbox.min.js" type="text/javascript"></script>
   <script src="<?php echo base_url();?>assets/backend/vendors/js/forms/toggle/switchery.min.js" type="text/javascript"></script>
-  <script src="<?php echo base_url();?>assets/backend/js/core/app.min.js" type="text/javascript"></script>
   <script src="<?php echo base_url();?>assets/backend/js/scripts/forms/switch.min.js" type="text/javascript"></script>
 
   <script src="<?php echo base_url();?>assets/backend/vendors/js/ui/prism.min.js" type="text/javascript"></script>

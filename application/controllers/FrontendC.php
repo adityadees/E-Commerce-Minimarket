@@ -13,20 +13,24 @@ class FrontendC extends CI_Controller{
 		$kat = $this->Mymod->ViewData('kategori');
 		$slide = $this->Mymod->ViewData('slider');
 		$promo = $this->Mymod->ViewData('promo');
-
+		$tgl=date('Y-m-d H:i:s');
 
 		$jtable=[
 			'promo' => 'produk_kode',
 			'produk' => 'produk_kode'
 		];
-
-		$promo = $this->Mymod->GetDataJoinNW($jtable)->result_array();
+		$where=[
+			't1.promo_start <='=>$tgl,
+			't1.promo_end >'=>$tgl,
+		];
+		$promo = $this->Mymod->GetDataJoin($jtable,$where)->result_array();
 		$shoprand = $this->Mymod->order_by_rand('kategori');
 
 		$x['produk'] = $prod;
 		$xx['produk'] = $prod;
 		$x['shoprand'] = $shoprand;
 		$x['kategori'] = $kat;
+		$y['kategori'] = $kat;
 		$x['slider'] = $slide;
 		$x['promo'] = $promo;
 
@@ -104,7 +108,7 @@ class FrontendC extends CI_Controller{
 		$where='produk_kode';
 		$data=$kode;
 		$prod = $this->Mymod->ViewDetail($table,$where,$data);
-		$x['produk'] = $prod;
+		$x['prd_detail'] = $prod;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/produk/produk_detail',$x);
@@ -126,30 +130,18 @@ class FrontendC extends CI_Controller{
 		$this->load->view('frontend/layout/footer');
 	}
 
-	public function myorders(){
-		$y['title']='Login';
-		$user_id=$_SESSION['user_id'];
-		$pemesanan_status='waiting';
-		$table='pemesanan';
-		$where=[
-			'user_id'=>$user_id,
-			'pemesanan_status'=>$pemesanan_status
-		];
-		$x['waiting'] = $waiting = $this->Mymod->ViewDataWhere($table,$where);
-		$this->load->view('frontend/layout/header',$y);
-		$this->load->view('frontend/myaccount/myorders',$x);
-		$this->load->view('frontend/layout/footer');
-	}
 
 	public function produk(){
 		$prod = $this->Mymod->ViewData('produk');
 		$kat = $this->Mymod->ViewData('kategori');
 		$x['produk'] = $prod;
 		$x['kategori'] = $kat;
+		$xx['produk'] = $prod;
+		$y['kategori'] = $kat;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/produk/produk',$x);
-		$this->load->view('frontend/layout/footer');	
+		$this->load->view('frontend/layout/footer',$xx);	
 	}
 
 	public function contactus(){
@@ -167,6 +159,31 @@ class FrontendC extends CI_Controller{
 			$where='user_id';
 			$user = $this->Mymod->ViewDetail($table,$where,$data);
 			$x['user'] = $user;
+
+
+			$bbtabel=[
+				'pemesanan' => 'pemesanan_kode',
+				'pembayaran' => 'pemesanan_kode'
+			];
+			$wpesan=[
+				't1.user_id '=>$data,
+				't2.pembayaran_status'=>'belumbayar',
+				't2.pembayaran_method'=>'transfer',
+			];
+
+			$bdikirim=[
+				't1.user_id '=>$data,
+				't1.pemesanan_status'=>'waiting',
+			];
+
+
+			$x['belumbayar'] = $belumbayar = $this->Mymod->GetDataJoin($bbtabel,$wpesan);
+			$x['belumdikirim'] = $belumdikirim = $this->Mymod->GetDataJoin($bbtabel,$bdikirim);
+
+
+
+
+
 			$this->load->view('frontend/layout/header',$y);
 			$this->load->view('frontend/myaccount/myaccount',$x);
 			$this->load->view('frontend/layout/footer');	
@@ -190,7 +207,6 @@ class FrontendC extends CI_Controller{
 
 		$produk_kode=$this->input->post('produk_kode');
 		$qty=$this->input->post('qty');
-		$ukuran=$this->input->post('ukuran');
 		$user_id=$_SESSION['user_id'];
 
 
@@ -200,7 +216,6 @@ class FrontendC extends CI_Controller{
 		$where=[
 			'produk_kode'=>$produk_kode,
 			'user_id'=>$user_id,
-			'keranjang_ukuran'=>$ukuran
 		];
 
 		$cekproduk=$this->Mymod->CekDataRows($table,$where);
@@ -227,7 +242,6 @@ class FrontendC extends CI_Controller{
 				'produk_kode'=>$produk_kode,
 				'user_id'=>$user_id,
 				'keranjang_qty'=>$qty,
-				'keranjang_ukuran'=>$ukuran
 			);
 			$rd=$this->Mymod->InsertData($table,$data);
 			$this->session->set_flashdata('cartsuccess', 'Berhasil menambah '.$title);
@@ -267,77 +281,112 @@ class FrontendC extends CI_Controller{
 	}
 
 	public function save_checkout(){
-		$pemesanan_diskon=$this->input->post('pemesanan_diskon');
 		$pemesanan_ongkir=$this->input->post('pemesanan_ongkir');
 		$pemesanan_total=$this->input->post('pemesanan_total');
-		$pemesanan_sprice=$this->input->post('pemesanan_sprice');
+		$pemesanan_subtotal=$this->input->post('pemesanan_subtotal');
 		$rekening=$this->input->post('rekening');
 		$user_id=$this->input->post('user_id');
 		$cid=$this->input->post('cid');
 		$ps_nama=$this->input->post('ps_nama');
-		$ps_tanggal=$this->input->post('ps_tanggal');
-		$ps_ucapan=$this->input->post('ps_ucapan');
-		$ps_lokasi=$this->input->post('ps_lokasi');
-		$ps_kds=$this->input->post('ps_kds');
+		$ps_email=$this->input->post('ps_email');
+		$ps_tel=$this->input->post('ps_tel');
+		$ps_alamat=$this->input->post('ps_alamat');
+		$user_nama=$this->input->post('user_nama');
+		$user_email=$this->input->post('user_email');
+		$user_tel=$this->input->post('user_tel');
+		$user_alamat=$this->input->post('user_alamat');
 		$produk_kode=$this->input->post('produk_kode');
 		$prd_kd=$this->input->post('prd_kd');
 		$pdp_qty=$this->input->post('pdp_qty');
-		$pdp_size=$this->input->post('pdp_size');
+		$pdp_bonus=$this->input->post('pdp_bonus');
 		$pdp_harga=$this->input->post('pdp_harga');
 		$pdp_diskon=$this->input->post('pdp_diskon');
 		$pdp_subtotal=$this->input->post('pdp_subtotal');
 		$pemesanan_kode=$this->input->post('pemesanan_kode');
+		$pembayaran_method=$this->input->post('pembayaran_method');
+		$infoakun=$this->input->post('infoakun');
+
+
 
 
 		$data=[
 			'pemesanan_kode'=>$pemesanan_kode,
 			'user_id'=>$user_id,
-			'rekening_id'=>$rekening,
-			'pemesanan_sprice'=>$pemesanan_sprice,
-			'pemesanan_diskon'=>$pemesanan_diskon,
+			'pemesanan_subtotal'=>$pemesanan_subtotal,
 			'pemesanan_ongkir'=>$pemesanan_ongkir,
 			'pemesanan_total'=>$pemesanan_total,
 		];
 		$rd=$this->Mymod->insertData('pemesanan',$data);
 
 		if($rd){
-			for($count = 0; $count < sizeof($cid); $count++){
+			if($pembayaran_method=='ditempat'){
 				$data=[
 					'pemesanan_kode'=>$pemesanan_kode,
-					'produk_kode'=>$prd_kd[$count],
-					'pdp_qty'=>$pdp_qty[$count],
-					'pdp_size'=>$pdp_size[$count],
-					'pdp_harga'=>$pdp_harga[$count],
-					'pdp_diskon'=>$pdp_diskon[$count],
-					'pdp_subtotal'=>$pdp_subtotal[$count],
+					'pembayaran_method'=>$pembayaran_method,
 				];
-				$this->Mymod->insertData('pemesanan_detailp',$data);
+			}else {
+				$data=[
+					'pemesanan_kode'=>$pemesanan_kode,
+					'pembayaran_method'=>$pembayaran_method,
+					'pembayaran_status'=>'belumbayar',
+				];
 			}
 
-			for($count = 0; $count < sizeof($ps_kds); $count++){
-				$data=[
-					'pemesanan_kode'=>$pemesanan_kode,
-					'produk_kode'=>$produk_kode[$count],
-					'ps_nama'=>$ps_nama[$count],
-					'ps_tanggal'=>$ps_tanggal[$count],
-					'ps_ucapan'=>$ps_ucapan[$count],
-					'ps_lokasi'=>$ps_lokasi[$count],
-				];
+			$rs=$this->Mymod->insertData('pembayaran',$data);
+			if($rs){
+				for($count = 0; $count < sizeof($cid); $count++){
+					$data=[
+						'pemesanan_kode'=>$pemesanan_kode,
+						'produk_kode'=>$prd_kd[$count],
+						'pdp_qty'=>$pdp_qty[$count],
+						'pdp_bonus'=>$pdp_bonus[$count],
+						'pdp_harga'=>$pdp_harga[$count],
+						'pdp_diskon'=>$pdp_diskon[$count],
+						'pdp_subtotal'=>$pdp_subtotal[$count],
+					];
+					$this->Mymod->insertData('pemesanan_detailp',$data);
+				}
+
+				if($infoakun=='sesuai'){
+					$data=[
+						'pemesanan_kode'=>$pemesanan_kode,
+						'ps_nama'=>$user_nama,
+						'ps_email'=>$user_email,
+						'ps_tel'=>$user_tel,
+						'ps_alamat'=>$user_alamat,
+					];
+				}else {
+					$data=[
+						'pemesanan_kode'=>$pemesanan_kode,
+						'ps_nama'=>$ps_nama,
+						'ps_email'=>$ps_email,
+						'ps_tel'=>$ps_tel,
+						'ps_alamat'=>$ps_lokasi,
+					];	
+				}
+				
+
 				$this->Mymod->insertData('pemesanan_ship',$data);
-			}
 
-			$table='keranjang';
-			$user_id=$_SESSION['user_id'];
-			$where = [
-				'user_id' => $user_id
-			];
-			$this->Mymod->DeleteData($table,$where);
-			$this->session->set_flashdata('success', 'Berhasil memesan');
-			redirect('checkout');
+				$table='keranjang';
+				$user_id=$_SESSION['user_id'];
+				$where = [
+					'user_id' => $user_id
+				];
+				$this->Mymod->DeleteData($table,$where);
+				$this->session->set_flashdata('success', 'Berhasil memesan');
+				redirect('checkout');
+			}
+			else {
+				$this->session->set_flashdata('success', 'Gagal memesan');
+				redirect('checkout');
+			}
 		} else {
 			$this->session->set_flashdata('success', 'Gagal memesan');
 			redirect('checkout');
 		}
+
+		
 	}
 
 
