@@ -115,7 +115,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="widget_copyright">
-                    <p>copyright &copy; 2018 <a href="#">Lionshop</a>. all right reserved</p>
+                    <p>copyright &copy; 2018 . all right reserved</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
