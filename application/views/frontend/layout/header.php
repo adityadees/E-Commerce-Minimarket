@@ -36,6 +36,7 @@
      'keranjang' => 'produk_kode',
      'produk' => 'produk_kode'
    ];
+   $kategori = $this->Mymod->ViewData('kategori');
    $getcart = $this->Mymod->GetDataJoin($jtable,$where);
 
    $countcart=$getcart->num_rows();
@@ -235,7 +236,7 @@
                     $gsubkat=$this->Mymod->ViewDataWhere($table,$where); 
                     foreach ($gsubkat as $subkat):
                       ?>
-                      <li><a href="#"><?= $subkat['sk_nama'];?></a>
+                      <li><a href="<?= base_url();?>produk/subkat/<?= $subkat['sk_id'];?>"><?= $subkat['sk_nama'];?></a>
                         <div class="categorie_sub_menu">
                           <ul>
                             <?php 
@@ -246,7 +247,7 @@
                             $glist=$this->Mymod->ViewDataWhere($table,$where); 
                             foreach ($glist as $list):
                               ?>
-                              <li><a href="#"><?= $list['list_nama'];?></a></li>
+                              <li><a href="<?= base_url();?>produk/list/<?= $list['list_id'];?>"><?= $list['list_nama'];?></a></li>
                             <?php endforeach; ?>
 
                           </ul>

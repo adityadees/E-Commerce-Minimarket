@@ -1,3 +1,4 @@
+
 <div class="breadcrumbs_area contact_bread">
     <div class="container">
         <div class="row">
@@ -37,26 +38,30 @@
                             <h3>Dashboard </h3>
                             <?php if($belumbayar->num_rows()>0){ ?>
                                 <div class="alert alert-danger" role="alert">
-                                    Anda memiliki  
-                                    <?php 
-                                    echo $belumbayar->num_rows();
-                                    ?> 
-                                    pesanan yang belum di bayar! <a href="#" class="alert-link">Bayar sekarang</a>
+                                    Anda memiliki
+                                    <span class="alert-link text-success">  
+                                        <?php 
+                                        echo $belumbayar->num_rows();
+                                        ?> 
+                                    </span>
+                                    pesanan yang belum di bayar! <a href="<?= base_url();?>upload/pembayaran" class="alert-link text-primary">Bayar sekarang</a>
                                 </div>
                             <?php } else {} ?>
 
                             <?php if($belumdikirim->num_rows()>0){ ?>
                                 <div class="alert alert-info" role="alert">
                                     Anda memiliki 
-                                    <?php 
-                                    echo $belumdikirim->num_rows();
-                                    ?> 
+                                    <span class="alert-link text-success">  
+                                        <?php 
+                                        echo $belumdikirim->num_rows();
+                                        ?> 
+                                    </span>
                                     pesanan yang belum di dikirim.
                                 </div>
                             <?php } else {} ?>
                         </div>
                         <div class="tab-pane fade" id="orders">
-                         <div class="ml-auto mr-auto col-lg-9">
+                           <div class="ml-auto mr-auto col-lg-9">
                             <div class="checkout-wrapper">
                                 <div id="faq" class="panel-group">
 
@@ -88,7 +93,7 @@
                                             if(isset($belumbayar)){
                                                 foreach ($belumbayar->result_array() as $i) : ?>
                                                     <tr>
-                                                        <td><?= $i['pemesanan_kode']; ?></td>
+                                                        <td><a href="<?= base_url();?>invoice/cetak/<?= $i['pemesanan_kode']; ?>" target="_blank"><?= $i['pemesanan_kode']; ?></a></td>
                                                         <td class="text-center"><?= "Rp. ".number_format($i['pemesanan_total']); ?></td>
                                                         <td class="text-center"><?= date('d-m-Y',strtotime($i['pemesanan_tanggal'])); ?></td>
                                                         <td class="text-center">
@@ -107,6 +112,7 @@
                                                     <th>Invoice</th>
                                                     <th>Total Biaya</th>
                                                     <th>Tanggal</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -114,9 +120,11 @@
                                               if(isset($belumdikirim)){
                                                 foreach ($belumdikirim->result_array() as $i) : ?>
                                                     <tr>
-                                                        <td><?= $i['pemesanan_kode']; ?></td>
+                                                        <td><a href="<?= base_url();?>invoice/cetak/<?= $i['pemesanan_kode']; ?>" target="_blank"><?= $i['pemesanan_kode']; ?></a></td>
                                                         <td><?= "Rp. ".number_format($i['pemesanan_total']); ?></td>
                                                         <td><?= date('d-m-Y',strtotime($i['pemesanan_tanggal'])); ?></td>
+                                                        <td><?php if($i['pembayaran_status']=='pending') {echo "
+                                                        <span class='text-warning'>Waiting</span>";} else if($i['pembayaran_status']=='belumbayar'){echo "<span class='text-danger'>Belum Bayar</span>";} else {echo "<span class='text-primary'>Delivery</span>";}?></td>
                                                     </tr>
                                                 <?php endforeach; } else {}?>
                                             </tbody>
@@ -132,11 +140,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
+                                              <?php 
+                                              if(isset($selesai)){
+                                                foreach ($selesai->result_array() as $i) : ?>
+                                                    <tr>
+                                                        <td><a href="<?= base_url();?>invoice/cetak/<?= $i['pemesanan_kode']; ?>" target="_blank"><?= $i['pemesanan_kode']; ?></a></td>
+                                                        <td><?= "Rp. ".number_format($i['pemesanan_total']); ?></td>
+                                                        <td><?= date('d-m-Y',strtotime($i['pemesanan_tanggal'])); ?></td>
+                                                    </tr>
+                                                <?php endforeach; } else {}?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -155,11 +167,11 @@
                                         <a class="nav-link active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Edit your account information</a>
                                     </li>
                                     <li>
-                                     <a class="nav-link" data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Data sheet</a>
-                                 </li>
-                             </ul>
-                         </div> 
-                         <div class="tab-content product_details_content">
+                                       <a class="nav-link" data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Password</a>
+                                   </li>
+                               </ul>
+                           </div> 
+                           <div class="tab-content product_details_content">
                             <div class="tab-pane fade show active" id="info" role="tabpanel" >
                                 <div class="product_d_tab_content">
                                     <form method="POST" action="<?= base_url();?>frontendc/update_user">
@@ -213,7 +225,7 @@
                             </div>
                             <div class="tab-pane fade" id="sheet" role="tabpanel">
                                 <div class="product_d_tab_content">
-                                 <form method="POST" action="<?= base_url();?>frontendc/update_password">
+                                   <form method="POST" action="<?= base_url();?>frontendc/update_password">
                                     <div class="panel-body">
                                         <div class="billing-information-wrapper">
                                             <div class="account-info-wrapper">
@@ -248,66 +260,8 @@
 
                 </div>
             </div>   
-
-        </div>
-        <div class="tab-pane" id="address">
-           <p>The following addresses will be used on the checkout page by default.</p>
-           <h4 class="billing-address">Billing address</h4>
-           <a href="#" class="view">Edit</a>
-           <p><strong>Bobby Jackson</strong></p>
-           <address>
-            House #15<br>
-            Road #1<br>
-            Block #C <br>
-            Banasree <br>
-            Dhaka <br>
-            1212
-        </address>
-        <p>Bangladesh</p>   
-    </div>
-    <div class="tab-pane fade" id="account-details">
-        <h3>Account details </h3>
-        <div class="login">
-            <div class="login_form_container">
-                <div class="account_login_form">
-                    <form action="#">
-                        <p>Already have an account? <a href="#">Log in instead!</a></p>
-                        <div class="input-radio">
-                            <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                            <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                        </div> <br>
-                        <label>First Name</label>
-                        <input type="text" name="first-name">
-                        <label>Last Name</label>
-                        <input type="text" name="last-name">
-                        <label>Email</label>
-                        <input type="text" name="email-name">
-                        <label>Password</label>
-                        <input type="password" name="user-password">
-                        <label>Birthdate</label>
-                        <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
-                        <span class="example">
-                          (E.g.: 05/31/1970)
-                      </span>
-                      <br>
-                      <span class="custom_checkbox">
-                        <input type="checkbox" value="1" name="optin">
-                        <label>Receive offers from our partners</label>
-                    </span>
-                    <br>
-                    <span class="custom_checkbox">
-                        <input type="checkbox" value="1" name="newsletter">
-                        <label>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                    </span>
-                    <div class="save_button primary_btn default_button">
-                        <a href="#">Save</a>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 </div>
 </div>

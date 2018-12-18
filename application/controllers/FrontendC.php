@@ -13,6 +13,7 @@ class FrontendC extends CI_Controller{
 		$kat = $this->Mymod->ViewData('kategori');
 		$slide = $this->Mymod->ViewData('slider');
 		$promo = $this->Mymod->ViewData('promo');
+		$best = $this->Mymod->best_seller()->result_array();
 		$tgl=date('Y-m-d H:i:s');
 
 		$jtable=[
@@ -33,6 +34,7 @@ class FrontendC extends CI_Controller{
 		$y['kategori'] = $kat;
 		$x['slider'] = $slide;
 		$x['promo'] = $promo;
+		$x['best'] = $best;
 
 
 
@@ -43,6 +45,14 @@ class FrontendC extends CI_Controller{
 		$this->load->view('frontend/layout/footer',$xx);
 
 	}
+
+	public function pembayaran(){
+		$y['title']='Pembayaran';
+		$this->load->view('frontend/layout/header',$y);
+		$this->load->view('frontend/form/pembayaran');
+		$this->load->view('frontend/layout/footer');
+	}
+
 	public function cart()
 	{
 		if(isset($_SESSION['logged_in_user'])){
@@ -66,6 +76,7 @@ class FrontendC extends CI_Controller{
 		$this->load->view('frontend/layout/footer');
 
 	}
+
 
 
 	public function checkout()
@@ -108,11 +119,71 @@ class FrontendC extends CI_Controller{
 		$where='produk_kode';
 		$data=$kode;
 		$prod = $this->Mymod->ViewDetail($table,$where,$data);
+		$proed = $this->Mymod->ViewData('produk');
 		$x['prd_detail'] = $prod;
+		$xx['produk'] = $proed;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/produk/produk_detail',$x);
-		$this->load->view('frontend/layout/footer');
+		$this->load->view('frontend/layout/footer',$xx);
+	}
+	public function subkat()
+	{
+
+		$kode=$this->uri->segment(3);
+
+		$table='produk';
+		$where='produk_kode';
+		$data=$kode;
+		$best = $this->Mymod->best_seller()->result_array();
+		$nprds = $this->Mymod->joinsubkat($kode)->result_array();
+		$proed = $this->Mymod->ViewData('produk');
+		$x['nprd'] = $nprds;
+		$x['best'] = $best;
+		$xx['produk'] = $proed;
+		$y['title']='Produk';
+		$this->load->view('frontend/layout/header',$y);
+		$this->load->view('frontend/produk/subkat',$x);
+		$this->load->view('frontend/layout/footer',$xx);
+	}
+	public function bykat()
+	{
+
+		$kode=$this->uri->segment(3);
+
+		$table='produk';
+		$where='produk_kode';
+		$data=$kode;
+		$best = $this->Mymod->best_seller()->result_array();
+		$nprds = $this->Mymod->joinkat($kode)->result_array();
+		$proed = $this->Mymod->ViewData('produk');
+		$x['nprd'] = $nprds;
+		$x['best'] = $best;
+		$xx['produk'] = $proed;
+		$y['title']='Produk';
+		$this->load->view('frontend/layout/header',$y);
+		$this->load->view('frontend/produk/kat',$x);
+		$this->load->view('frontend/layout/footer',$xx);
+	}
+
+	public function list()
+	{
+
+		$kode=$this->uri->segment(3);
+
+		$table='produk';
+		$where='produk_kode';
+		$data=$kode;
+		$best = $this->Mymod->best_seller()->result_array();
+		$nprds = $this->Mymod->joinlist($kode)->result_array();
+		$proed = $this->Mymod->ViewData('produk');
+		$x['nprd'] = $nprds;
+		$x['best'] = $best;
+		$xx['produk'] = $proed;
+		$y['title']='Produk';
+		$this->load->view('frontend/layout/header',$y);
+		$this->load->view('frontend/produk/list',$x);
+		$this->load->view('frontend/layout/footer',$xx);
 	}
 
 
@@ -133,8 +204,10 @@ class FrontendC extends CI_Controller{
 
 	public function produk(){
 		$prod = $this->Mymod->ViewData('produk');
+		$best = $this->Mymod->best_seller()->result_array();
 		$kat = $this->Mymod->ViewData('kategori');
 		$x['produk'] = $prod;
+		$x['best'] = $best;
 		$x['kategori'] = $kat;
 		$xx['produk'] = $prod;
 		$y['kategori'] = $kat;
@@ -148,6 +221,13 @@ class FrontendC extends CI_Controller{
 		$y['title']='Contact Us';
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/contact/contactus');
+		$this->load->view('frontend/layout/footer');		
+	}
+
+	public function aboutus(){
+		$y['title']='Contact Us';
+		$this->load->view('frontend/layout/header',$y);
+		$this->load->view('frontend/contact/aboutus');
 		$this->load->view('frontend/layout/footer');		
 	}
 
@@ -175,13 +255,15 @@ class FrontendC extends CI_Controller{
 				't1.user_id '=>$data,
 				't1.pemesanan_status'=>'waiting',
 			];
+			$pselesai=[
+				't1.user_id '=>$data,
+				't1.pemesanan_status'=>'selesai',
+			];
 
 
-			$x['belumbayar'] = $belumbayar = $this->Mymod->GetDataJoin($bbtabel,$wpesan);
-			$x['belumdikirim'] = $belumdikirim = $this->Mymod->GetDataJoin($bbtabel,$bdikirim);
-
-
-
+			$x['selesai'] = $this->Mymod->GetDataJoin($bbtabel,$pselesai);
+			$x['belumbayar'] = $this->Mymod->GetDataJoin($bbtabel,$wpesan);
+			$x['belumdikirim'] =  $this->Mymod->GetDataJoin($bbtabel,$bdikirim);
 
 
 			$this->load->view('frontend/layout/header',$y);
@@ -212,7 +294,7 @@ class FrontendC extends CI_Controller{
 
 		$title='Keranjang';
 		$table='keranjang';
-		
+
 		$where=[
 			'produk_kode'=>$produk_kode,
 			'user_id'=>$user_id,
@@ -234,8 +316,8 @@ class FrontendC extends CI_Controller{
 			);
 			$rd=$this->Mymod->UpdateData($table, $data, $where);
 			$this->session->set_flashdata('cartsuccess', 'Berhasil merubah '.$title);
-			redirect();			
-			
+			redirect($_SERVER['HTTP_REFERER']);	
+
 
 		}else {
 			$data=array(
@@ -245,9 +327,10 @@ class FrontendC extends CI_Controller{
 			);
 			$rd=$this->Mymod->InsertData($table,$data);
 			$this->session->set_flashdata('cartsuccess', 'Berhasil menambah '.$title);
-			redirect();
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
+
 	public function delete_cart(){
 		$keranjang_id=$this->input->post('keranjang_id');
 		$title = 'Keranjang';
@@ -361,10 +444,10 @@ class FrontendC extends CI_Controller{
 						'ps_nama'=>$ps_nama,
 						'ps_email'=>$ps_email,
 						'ps_tel'=>$ps_tel,
-						'ps_alamat'=>$ps_lokasi,
+						'ps_alamat'=>$ps_alamat,
 					];	
 				}
-				
+
 
 				$this->Mymod->insertData('pemesanan_ship',$data);
 
@@ -386,7 +469,7 @@ class FrontendC extends CI_Controller{
 			redirect('checkout');
 		}
 
-		
+
 	}
 
 
@@ -400,7 +483,7 @@ class FrontendC extends CI_Controller{
 
 		$title='User';
 		$table='user';
-		
+
 		$where=[
 			'user_id'=>$user_id
 		];
@@ -428,7 +511,7 @@ class FrontendC extends CI_Controller{
 
 		$title='Password';
 		$table='user';
-		
+
 		if ($password==$repassword) {
 
 			$where=[
@@ -454,5 +537,51 @@ class FrontendC extends CI_Controller{
 
 
 	}
-	
+
+
+	function upbukti(){
+		$pembayaran_nama=$this->input->post('pembayaran_nama');
+		$pemesanan_kode=$this->input->post('pemesanan_kode');
+		$table='pembayaran';
+
+		$where = [
+			'pemesanan_kode' => $pemesanan_kode
+		];
+
+		if(!empty($_FILES['filefoto']['name'])){
+			$config['upload_path'] = 'assets\images';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['file_name'] = $_FILES['filefoto']['name'];
+			$config['width'] = 1920;
+			$config['height'] = 683;
+
+			$this->load->library('upload',$config);
+			$this->upload->initialize($config);
+
+			if($this->upload->do_upload('filefoto')){
+				$uploadData = $this->upload->data();
+				$pembayaran_bukti = $uploadData['file_name'];
+
+				$data = [
+					'pembayaran_nama' => $pembayaran_nama,
+					'pembayaran_bukti' => $pembayaran_bukti,
+					'pembayaran_status' => 'pending',
+				];
+				$UpdateData=$this->Mymod->UpdateData($table,$data,$where);
+				if($UpdateData){
+					$this->session->set_flashdata('success', 'Berhasil ngeirim data '.$title);
+					redirect('upload/pembayaran');		
+				}else{
+					$this->session->set_flashdata('error', 'Gagal ngeirim data '.$title);
+					redirect('upload/pembayaran');		
+				}
+			}else{
+				$this->session->set_flashdata('error', 'Gagal ngeirim data '.$title);
+				redirect('upload/pembayaran');		
+			}
+		}else{
+			$this->session->set_flashdata('error', 'Gagal ngeirim data '.$title);
+			redirect('upload/pembayaran');		
+		}
+	}
 }

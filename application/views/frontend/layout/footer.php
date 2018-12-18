@@ -115,7 +115,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="widget_copyright">
-                    <p>copyright &copy; 2018 <a href="#">Lionshop</a>. all right reserved</p>
+                    <p>copyright &copy; 2018 <a href="#">Gantri Minimarket</a>. all right reserved</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -193,7 +193,7 @@
 
 
                                     <form action="<?= base_url();?>frontendc/addtocart" method="POST" name="cartForm">
-                                        <input min="1" max="100" value="1" type="number">
+                                        <input min="1" max="100" value="1" type="number" name="qty">
                                         <?php if(isset($_SESSION['logged_in_user'])) {
                                             ?>
                                             <input type="hidden" name="produk_kode" value="<?= $i['produk_kode'];?>">

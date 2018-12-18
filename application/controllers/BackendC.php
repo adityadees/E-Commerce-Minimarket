@@ -13,10 +13,41 @@ class BackendC extends CI_Controller{
 	public function index()
 	{
 		$y['title']='Dashboard';
+		$x['cp'] = $this->Mymod->countproduk();
+		$x['cus'] = $this->Mymod->cuser();
+		$x['cord'] = $this->Mymod->cord();
+		$x['sumprof'] = $this->Mymod->sumprof();
+
+		$table=[
+			'pemesanan' => 'user_id',
+			'user' => 'user_id'
+		];
+
+		$where = [
+			't1.pemesanan_status' => 'selesai'
+		];
+
+		$x['recentuser'] = $this->Mymod->GetDataJoinlimit($table,$where);
+		$x['indexcart'] = $this->Mymod->chartindex();
+		$x['indexlastorder'] = $this->Mymod->indexlastorder();
+
 		$this->load->view('backend/layout/header',$y);
 		$this->load->view('backend/layout/topbar');
 		$this->load->view('backend/layout/sidebar');
-		$this->load->view('backend/index');
+		$this->load->view('backend/index',$x);
+		$this->load->view('backend/layout/footer');
+	}
+	
+
+	public function laporan()
+	{
+		$y['title']='Laporan';
+		$x['data'] = $this->Mymod->JoinPesan();
+		$x['datas'] = $this->Mymod->JoinBayar();
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/layout/topbar');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/laporan/laporan',$x);
 		$this->load->view('backend/layout/footer');
 	}
 	
@@ -38,6 +69,60 @@ class BackendC extends CI_Controller{
 		$this->load->view('backend/produk/produk',$x);
 		$this->load->view('backend/layout/footer');
 	}
+	public function invoice()
+	{
+		$segment=$this->uri->segment(3);
+
+		$where=[
+			't1.pemesanan_kode'=>$segment,
+		];
+
+		$jtable=[
+			'pemesanan' => 'pemesanan_kode',
+			'pemesanan_detailp' => 'pemesanan_kode',
+			'pemesanan_ship' => 'pemesanan_kode',
+			'pembayaran' => 'pemesanan_kode',
+		];
+
+
+		$data = $this->Mymod->GetDataJoinArr($jtable,$where);
+		$y['title']='Invoice';
+		$x['data'] = $data->row_array();
+
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/layout/topbar');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/transaksi/invoice',$x);
+		$this->load->view('backend/layout/footer');
+	}
+
+	public function cetak()
+	{
+		$segment=$this->uri->segment(3);
+
+		$where=[
+			't1.pemesanan_kode'=>$segment,
+		];
+
+		$jtable=[
+			'pemesanan' => 'pemesanan_kode',
+			'pemesanan_detailp' => 'pemesanan_kode',
+			'pemesanan_ship' => 'pemesanan_kode',
+			'pembayaran' => 'pemesanan_kode',
+		];
+
+
+		$data = $this->Mymod->GetDataJoinArr($jtable,$where);
+		$y['title']='Invoice';
+		$x['data'] = $data->row_array();
+
+		$this->load->view('backend/layout/header',$y);
+		$this->load->view('backend/transaksi/cetak',$x);
+		$this->load->view('backend/layout/footer');
+	}
+
+
+
 	public function promo()
 	{
 
@@ -122,21 +207,25 @@ class BackendC extends CI_Controller{
 
 	public function pemesanan()
 	{
-		$y['title']='Dashboard';
+		$y['title']='Pemesanan';
+
+		$x['data'] = $this->Mymod->JoinPesan();
+
 		$this->load->view('backend/layout/header',$y);
 		$this->load->view('backend/layout/topbar');
-		$this->load->view('backend/transaksi/pemesanan');
-		$this->load->view('user/user');
+		$this->load->view('backend/layout/sidebar');
+		$this->load->view('backend/transaksi/pemesanan',$x);
 		$this->load->view('backend/layout/footer');
 	}
 
 	public function pembayaran()
 	{
-		$y['title']='Dashboard';
+		$y['title']='Pembayaran';
+		$x['data'] = $this->Mymod->JoinBayar();
 		$this->load->view('backend/layout/header',$y);
 		$this->load->view('backend/layout/topbar');
 		$this->load->view('backend/layout/sidebar');
-		$this->load->view('backend/transaksi/pembayaran');
+		$this->load->view('backend/transaksi/pembayaran',$x);
 		$this->load->view('backend/layout/footer');
 	}
 
@@ -250,6 +339,39 @@ class BackendC extends CI_Controller{
 		$this->Mymod->UpdateData($table,$data,$where);
 		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
 		redirect('admin/user');		
+	}	
+
+
+	function konfirmasi_pembayaran(){
+		$pembayaran_kode=$this->input->post('pembayaran_kode');
+		$title = 'Konfirmasi';
+
+		$table='pembayaran';
+		$data=[
+			'pembayaran_status'=>'selesai',
+		];
+		$where =[ 
+			'pembayaran_kode' => $pembayaran_kode
+		];		
+		$this->Mymod->UpdateData($table,$data,$where);
+		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+		redirect('admin/pemesanan');		
+	}
+
+	function konfirmasi_pengiriman(){
+		$pemesanan_kode=$this->input->post('pemesanan_kode');
+		$title = 'Konfirmasi';
+
+		$table='pemesanan';
+		$data=[
+			'pemesanan_status'=>'selesai',
+		];
+		$where =[ 
+			'pemesanan_kode' => $pemesanan_kode
+		];		
+		$this->Mymod->UpdateData($table,$data,$where);
+		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+		redirect('admin/pemesanan');		
 	}
 
 	function delete_user(){
@@ -266,19 +388,47 @@ class BackendC extends CI_Controller{
 	}		
 
 	function save_kategori(){
+
 		$kategori_nama=$this->input->post('kategori_nama');
 		$keterangan=$this->input->post('keterangan');
-
 		$title='kategori';
 		$table='kategori';
-		$data=[
+
+		if(!empty($_FILES['filefoto']['name'])){
+			$config['upload_path'] = 'assets\images';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['file_name'] = $_FILES['filefoto']['name'];
+			$config['width'] = 700;
+			$config['height'] = 700;
+
+			$this->load->library('upload',$config);
+			$this->upload->initialize($config);
+
+			if($this->upload->do_upload('filefoto')){
+				$uploadData = $this->upload->data();
+				$kategori_gambar = $uploadData['file_name'];
+			}else{
+				$kategori_gambar='defaultkat.png';
+			}
+		}else{
+			$kategori_gambar='defaultkat.png';
+		}
+		$data =[ 
 			'kategori_nama'=>$kategori_nama,
-			'kategori_ket'=>$keterangan
+			'kategori_ket'=>$keterangan,
+			'kategori_gambar' => $kategori_gambar
 		];
-		$rd=$this->Mymod->insertData($table,$data);
-		$this->session->set_flashdata('success', 'Berhasil menambah '.$title);
-		redirect('admin/kategori');
+		$InsertData=$this->Mymod->InsertData($table,$data);
+		if($InsertData){
+			$this->session->set_flashdata('success', 'Berhasil menambah data '.$title);
+			redirect('admin/kategori');		
+		}else{
+			$this->session->set_flashdata('error', 'Gagal menambah data '.$title);
+			redirect('admin/kategori');		
+		}
 	}	
+
+
 	function save_promo(){
 		$produk_kode=$this->input->post('produk_kode');
 		$promo_diskon=$this->input->post('promo_diskon');
@@ -334,16 +484,75 @@ class BackendC extends CI_Controller{
 		$kategori_id=$this->input->post('kategori_id');
 		$title = 'kategori';
 		$table='kategori';
-		$data=[
-			'kategori_nama'=>$kategori_nama,
-			'kategori_ket'=>$keterangan
-		];
-		$where =[ 
+
+		$where = [
 			'kategori_id' => $kategori_id
 		];
-		$this->Mymod->UpdateData($table,$data,$where);
-		$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
-		redirect('admin/kategori');		
+
+		if(!empty($_FILES['filefoto']['name'])){
+			$config['upload_path'] = 'assets\images';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['file_name'] = $_FILES['filefoto']['name'];
+			$config['width'] = 700;
+			$config['height'] = 700;
+
+			$this->load->library('upload',$config);
+			$this->upload->initialize($config);
+
+			if($this->upload->do_upload('filefoto')){
+				$uploadData = $this->upload->data();
+				$kategori_gambar = $uploadData['file_name'];
+
+				$data = [
+					'kategori_nama'=>$kategori_nama,
+					'kategori_ket'=>$keterangan,
+					'kategori_gambar' => $kategori_gambar
+				];
+				$UpdateData=$this->Mymod->UpdateData($table,$data,$where);
+				if($UpdateData){
+					$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+					redirect('admin/kategori');		
+				}else{
+					$this->session->set_flashdata('error', 'Gagal merubah data '.$title);
+					redirect('admin/kategori');		
+				}
+			}else{
+				
+				$data =[ 
+					'kategori_nama'=>$kategori_nama,
+					'kategori_ket'=>$keterangan,
+				];
+				$UpdateData=$this->Mymod->UpdateData($table,$data,$where);
+				if($UpdateData){
+					$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+					redirect('admin/kategori');		
+				}else{
+					$this->session->set_flashdata('error', 'Gagal merubah data '.$title);
+					redirect('admin/kategori');		
+				}
+			}
+		}else{
+
+			$data =[ 
+				'kategori_nama'=>$kategori_nama,
+				'kategori_ket'=>$keterangan,
+			];
+			$UpdateData=$this->Mymod->UpdateData($table,$data,$where);
+			if($UpdateData){
+				$this->session->set_flashdata('success', 'Berhasil merubah data '.$title);
+				redirect('admin/kategori');		
+			}else{
+				$this->session->set_flashdata('error', 'Gagal merubah data '.$title);
+				redirect('admin/kategori');		
+			}
+		}
+
+
+
+
+
+
+
 	}
 
 	function delete_kategori(){
@@ -534,9 +743,6 @@ class BackendC extends CI_Controller{
 				redirect('admin/slider');		
 			}
 		}
-
-
-
 	}
 
 	function delete_slider(){
@@ -558,6 +764,7 @@ class BackendC extends CI_Controller{
 		$produk_kode=$this->input->post('produk_kode');
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
+		$produk_up=$this->input->post('produk_up');
 		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
@@ -581,6 +788,7 @@ class BackendC extends CI_Controller{
 					'produk_nama' => $produk_nama,
 					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
+					'produk_up' => $produk_up,
 					'produk_ket' => $keterangan,
 					'produk_gambar' => $produk_gambar
 				];
@@ -600,6 +808,7 @@ class BackendC extends CI_Controller{
 					'produk_nama' => $produk_nama,
 					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
+					'produk_up' => $produk_up,
 					'produk_ket' => $keterangan,
 				];
 				$InsertData=$this->Mymod->InsertData($table,$data);
@@ -617,6 +826,7 @@ class BackendC extends CI_Controller{
 				'produk_nama' => $produk_nama,
 				'list_id' => $list_id,
 				'produk_harga' => $produk_harga,
+				'produk_up' => $produk_up,
 				'produk_ket' => $keterangan,
 			];
 			$InsertData=$this->Mymod->InsertData($table,$data);
@@ -704,6 +914,7 @@ class BackendC extends CI_Controller{
 		$produk_kode=$this->input->post('produk_kode');
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
+		$produk_up=$this->input->post('produk_up');
 		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
@@ -732,6 +943,7 @@ class BackendC extends CI_Controller{
 					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
+					'produk_up' => $produk_up,
 					'produk_gambar' => $produk_gambar
 				];
 
@@ -746,7 +958,11 @@ class BackendC extends CI_Controller{
 			}else{
 
 				$data = [
+					'produk_kode' => $produk_kode,
 					'produk_nama' => $produk_nama,
+					'list_id' => $list_id,
+					'produk_up' => $produk_up,
+					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 				];
 
@@ -765,6 +981,7 @@ class BackendC extends CI_Controller{
 				'produk_kode' => $produk_kode,
 				'produk_nama' => $produk_nama,
 				'list_id' => $list_id,
+				'produk_up' => $produk_up,
 				'produk_harga' => $produk_harga,
 				'produk_ket' => $keterangan,
 			];
@@ -856,7 +1073,9 @@ class BackendC extends CI_Controller{
 				redirect('admin/rekening');		
 			}
 		}
-	}
+	}	
+
+
 
 	public function delete_produk(){
 		$title = 'produk';
@@ -882,5 +1101,22 @@ class BackendC extends CI_Controller{
 		$this->session->set_flashdata('success', 'Berhasil menghapus data '.$title);
 		redirect('admin/rekening');
 	}		
+
+	public function sendWhatsapp(){
+		$user = $this->input->post('user');
+		$message = $this->input->post('message');
+		$area = '62';
+		$str = $user;
+		$str[0] = '';
+		$nphone = $str.$area;
+		$red = "https://wa.me/".$nphone."?text=".$message;
+
+		//echo "<script>
+		//window.open("."'".$red."'".");
+		//</script>";
+	//	redirect('admin');
+		redirect($red);	
+
+	}
 
 }

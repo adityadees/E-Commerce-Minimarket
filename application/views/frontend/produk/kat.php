@@ -94,7 +94,7 @@
                 <div class="row cate_tab_product">
                     <?php 
                     $tgl=date("Y-m-d h:i:s");
-                    foreach ($produk as $prod) :
+                    foreach ($nprd as $prod) :
 
                         $jtable=[
                             'promo' => 'produk_kode',

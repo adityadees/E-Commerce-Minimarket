@@ -66,17 +66,20 @@
                 </div>
             </div>
             <div class="categorie_banner_active owl-carousel">
-                <?php foreach ($kategori as $i) : ?>
+                <?php 
+                foreach ($kategori as $i) : 
+                    $cc = $this->Mymod->countkat($i['kategori_id'])->row_array();
+                    ?>
                     <div class="col-lg-2">
                         <div class="single_banner_categorie">
                             <div class="categorie_thumb">
-                                <a href="#"><img src="<?php echo base_url();?>assets/images/<?= $i['kategori_gambar']; ?>" alt="" ></a>
+                                <a href="<?= base_url()?>produk/kat/<?= $i['kategori_id'];?>"><img src="<?php echo base_url();?>assets/images/<?= $i['kategori_gambar']; ?>" alt=""  style="width: 150px;height: 150px"></a>
                                 <div class="categorie_number">
-                                    <span>(12) products</span>
+                                    <span>(<?= $cc['Total']; ?>) products</span>
                                 </div>
                             </div>
                             <div class="categorie_name">
-                                <a href="#"><?= $i['kategori_nama']; ?></a>
+                                <a href="<?= base_url()?>produk/kat/<?= $i['kategori_id'];?>"><?= $i['kategori_nama']; ?></a>
                             </div>
                         </div>
                     </div>
@@ -175,192 +178,91 @@
                             <h2> Bestseller</h2>
                         </div>
                         <div class="f_active_four owl-carousel">
-                            <div class="single_featured">
-                                <div class="single_product single_p_four">
-                                    <div class="product_thumb">
-                                        <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product20.jpg" alt=""></a>
-                                        <div class="product_discount">
-                                            <span>New</span>
-                                        </div>
-                                        <div class="product_action">
-                                            <ul>
-                                                <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="quick_view">
-                                            <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
-                                        </div>
+                            <?php 
+                            $tgl=date("Y-m-d h:i:s");
+                            foreach($best as $i): 
+                                $gtable='produk';
+                                $gwhere='produk_kode';
+                                $gdata=$i['produk_kode'];
 
+                                $gc= $this->Mymod->ViewDetail($gtable,$gwhere,$gdata);
+
+                                $jtable=[
+                                    'promo' => 'produk_kode',
+                                    'produk' => 'produk_kode'
+                                ];
+                                $where=[
+                                    't1.promo_start <='=>$tgl,
+                                    't1.promo_end >'=>$tgl,
+                                    't2.produk_kode'=>$gc['produk_kode'],
+                                ];
+                                $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                                $gprom = $promo->row_array();
+                                $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                                ?>
+                                <div class="single_featured">
+                                    <div class="single_product single_p_four">
+                                        <div class="product_thumb">
+                                           <a href="<?= base_url();?>produk/detail/<?= $gc['produk_kode']; ?>"><img src="<?php echo base_url();?>assets/images/<?= $gc['produk_gambar']; ?>" alt=""></a>
+                                           <?php if($promo->row_array() > 0 ) {?>
+                                            <div class="product_discount">
+                                                <span>- <?= $gprom['promo_diskon']."%"; ?></span>
+                                            </div>
+                                        <?php } else {} ?>
+                                        <div class="quick_view categorie_view">
+                                            <a href="#" data-toggle="modal" data-target="#modal_box<?= $gc['produk_kode'];?>" title="Quick view"><i class="fa fa-search"></i></a>
+                                        </div>
                                     </div>
                                     <div class="product_content">
-                                        <div class="samll_product_ratting">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </div>
                                         <div class="small_product_name">
-                                            <a title="Printed Summer Dress" href="single-product.html">Aliquam furniture</a>
+                                            <a title="<?= $gc['produk_nama']; ?>" href="<?= base_url();?>produk/detail/<?= $gc['produk_kode']; ?>"><?= $gc['produk_nama'];?></a>
                                         </div>
                                         <div class="small_product_price">
-                                            <span class="new_price"> $140.00 </span>
-                                        </div>
+                                         <?php if($promo->row_array() > 0 ) {?>
+                                            <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                                            <span class="old_price"> <?= "Rp. ".number_format($gc['produk_harga']); ?> </span>
+                                        <?php } else { ?>
+
+                                            <span class="new_price"> <?= "Rp. ".number_format($gc['produk_harga']); ?> </span>
+
+                                        <?php } ?>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single_featured">
-                                <div class="single_product single_p_four">
-                                    <div class="product_thumb">
-                                        <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product21.jpg" alt=""></a>
-                                        <div class="product_discount">
-                                            <span>New</span>
-                                        </div>
-                                        <div class="product_action">
-                                            <ul>
-                                                <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="quick_view">
-                                            <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
-                                        </div>
-
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="samll_product_ratting">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="small_product_name">
-                                            <a title="Printed Summer Dress" href="single-product.html">Aliquam lobortis</a>
-                                        </div>
-                                        <div class="small_product_price">
-                                            <span class="new_price"> $140.00 </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="single_featured">
-                                <div class="single_product single_p_four">
-                                    <div class="product_thumb">
-                                        <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product22.jpg" alt=""></a>
-                                        <div class="product_discount">
-                                            <span>New</span>
-                                        </div>
-                                        <div class="product_action">
-                                            <ul>
-                                                <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="quick_view">
-                                            <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
-                                        </div>
-
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="samll_product_ratting">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="small_product_name">
-                                            <a title="Printed Summer Dress" href="single-product.html">hanbag elit</a>
-                                        </div>
-                                        <div class="small_product_price">
-                                            <span class="new_price"> $130.00 </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_featured">
-                                <div class="single_product single_p_four">
-                                    <div class="product_thumb">
-                                        <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product26.jpg" alt=""></a>
-                                        <div class="product_discount">
-                                            <span>New</span>
-                                        </div>
-                                        <div class="product_action">
-                                            <ul>
-                                                <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="quick_view">
-                                            <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
-                                        </div>
-
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="samll_product_ratting">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="small_product_name">
-                                            <a title="Printed Summer Dress" href="single-product.html">Aliquam lobortis</a>
-                                        </div>
-                                        <div class="small_product_price">
-                                            <span class="new_price"> $140.00 </span>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
-                    </div>    
+                    <?php endforeach; ?>
                 </div>
+            </div>    
+        </div>
 
 
-                <div class="col-lg-3 col-md-3 ">
+        <div class="col-lg-3 col-md-3 ">
 
-                    <div class="brand_logo brand_logo_two">  
-                        <div class="top_title mb-10">
-                            <h2> logo brands</h2>
-                        </div>
-                        <div class="brand_active_two active_four owl-carousel">
-                            <div class="single_brand_item single_i_four">
-                                <div class="brand_itens_inner">
-                                    <div class="single_brand single_b_four">
-                                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="brand_itens_inner">
-                                    <div class="single_brand single_b_four">
-                                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="brand_itens_inner">
-                                    <div class="single_brand single_b_four">
-                                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
-                                    </div>
-                                </div>
+            <div class="brand_logo brand_logo_two">  
+                <div class="top_title mb-10">
+                    <h2> logo brands</h2>
+                </div>
+                <div class="brand_active_two active_four owl-carousel">
+                    <div class="single_brand_item single_i_four">
+                        <div class="brand_itens_inner">
+                            <div class="single_brand single_b_four">
+                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
                             </div>
                         </div>
-                    </div> 
+                        <div class="brand_itens_inner">
+                            <div class="single_brand single_b_four">
+                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="brand_itens_inner">
+                            <div class="single_brand single_b_four">
+                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div> 
+        </div>
 
          <!--    <div class="col-lg-6">
                 <div class="featured_produt feature_p_four mb-40">    

@@ -50,12 +50,13 @@
                                                     <th>Diskon</th>
                                                     <th>Start</th>
                                                     <th>End</th>
+                                                    <th>Status</th>
                                                     <th>Gambar</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($promo as $i)  : ?>
+                                                <?php foreach ($promo as $i)  : $tgln=date('d-m-Y H:i:s'); ?>
                                                     <tr>
                                                         <td><?php echo $i['produk_kode'];?></td>
                                                         <td><?php echo $i['produk_nama'];?></td>
@@ -63,7 +64,7 @@
                                                         <td><?php echo $i['promo_diskon']."%";?></td>
                                                         <td><?php echo date('d-m-Y H:i:s',strtotime($i['promo_start']));?></td>
                                                         <td><?php echo date('d-m-Y H:i:s',strtotime($i['promo_end']));?></td>
-                                                        <td><?php echo substr($i['produk_ket'],0,100);?>...</td>
+                                                        <td><?php  if($tgln>$i['promo_end']){echo "Start";}else if($tgln<$i['promo_start']){echo "Belum Mulai";}else{echo "End";};?></td>
                                                         <td>    <img class="card-img-top img-fluid" src="<?php echo base_url().'assets/images/'.$i['produk_gambar'];?>" alt="Card image cap"></td>
                                                         <td class=" text-center">
                                                             <div class="btn-group mr-1 mb-1">

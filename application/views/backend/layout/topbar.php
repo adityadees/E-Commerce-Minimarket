@@ -49,7 +49,7 @@
                 <img src="<?php echo base_url();?>assets/backend/images/portrait/small/avatar-s-1.png" alt="avatar">
                 <i></i>
               </span>
-              <span class="user-name">John Doe</span>
+              <span class="user-name"><?= $_SESSION['user_username'];?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="<?= base_url();?>">

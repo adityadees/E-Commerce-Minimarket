@@ -46,7 +46,7 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
         <div class="row">
             <div class="col-lg-5 col-md-6">
                 <div class="product_d_tab fix">  
-                   <div class="tab-content product_d_content">
+                 <div class="tab-content product_d_content">
                     <div class="tab-pane fade show active" id="p_d_tab1" role="tabpanel" >
                         <div class="modal_tab_img">
                             <a href="#"><img src="<?= base_url().'assets/images/'.$prd_detail['produk_gambar'];?>" data-zoom-image="<?= base_url().'assets/images/'.$prd_detail['produk_gambar'];?>" alt=""></a>
@@ -77,7 +77,7 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
                     </p>
                 </div>
                 <div class="small_product_price mb-15">
-                   <?php if($promo->row_array() > 0 ) {?>
+                 <?php if($promo->row_array() > 0 ) {?>
                     <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
                     <span class="old_price"> <?= "Rp. ".number_format($prd_detail['produk_harga']); ?> </span>
                 <?php } else { ?>
@@ -90,7 +90,7 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
 
 
                 <form action="<?= base_url();?>frontendc/addtocart" method="POST" name="cartForm">
-                    <input min="0" max="100" value="1" type="number">
+                    <input min="0" max="100" value="1" type="number" name="qty">
                     <?php if(isset($_SESSION['logged_in_user'])) {
                         ?>
                         <input type="hidden" name="produk_kode" value="<?= $prd_detail['produk_kode'];?>">
@@ -151,108 +151,138 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
     <div class="container">
         <div class="product_details_s_product_inner">
             <div class="top_title p_details mb-10">
-                <h2>  11 other products in the same category:</h2>
+                <h2>Kategori produk yang berhubungan:</h2>
             </div>
             <div class="row">
 
+
                 <div class="details_s_product_active owl-carousel">
+                 <?php
+                 $whr = [
+                    'kategori.kategori_id' => $gkategori['kategori_id'],
+                ];
+                $related = $this->Mymod->related($whr)->result_array();
+                foreach ($related as  $arre) :
+
+                    $jtable=[
+                        'promo' => 'produk_kode',
+                        'produk' => 'produk_kode'
+                    ];
+                    $where=[
+                        't1.promo_start <='=>$tgl,
+                        't1.promo_end >'=>$tgl,
+                        't2.produk_kode'=>$arre['produk_kode'],
+                    ];
+                    $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                    $gprom = $promo->row_array();
+                    $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                    ?>
                     <div class="col-lg-4">
                         <div class="single_product categorie">
                             <div class="product_thumb">
-                                <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product11.jpg" alt=""></a>
+                              <a href="<?= base_url().'produk/detail/'.$arre['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$arre['produk_gambar'];?>" alt="" style="width: 300px; height:200px;"></a>
+                              <?php if($promo->row_array() > 0 ) {?>
                                 <div class="product_discount">
-                                    <span>-10%</span>
+                                    <span>- <?= $gprom['promo_diskon']."%"; ?></span>
                                 </div>
-                                <div class="product_action">
-                                    <ul>
-                                        <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="quick_view">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
-                                </div>
+                            <?php } else {} ?>
+                            <div class="quick_view categorie_view">
+                                <a href="#" data-toggle="modal" data-target="#modal_box<?= $arre['produk_kode'];?>" title="Quick view"><i class="fa fa-search"></i></a>
+                            </div>
 
-                            </div>
-                            <div class="product_content">
-                                <div class="samll_product_ratting">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="small_product_name">
-                                    <a title="Printed Summer Dress" href="single-product.html">Dignissim venenatis</a>
-                                </div>
-                                <div class="small_product_price">
-                                    <span class="new_price"> $140.00 </span>
-                                    <span class="old_price">  $150.50  </span>
-                                </div>
-                            </div>
                         </div>
+                        <div class="product_content">
+                            <div class="small_product_name">
+                              <a title="<?= $arre['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$arre['produk_kode'];?>"> <?= $arre['produk_nama']; ?> </a>
+                          </div>
+                          <div class="small_product_price">
+                           <?php if($promo->row_array() > 0 ) {?>
+                            <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                            <span class="old_price"> <?= "Rp. ".number_format($arre['produk_harga']); ?> </span>
+                        <?php } else { ?>
+
+                            <span class="new_price"> <?= "Rp. ".number_format($arre['produk_harga']); ?> </span>
+
+                        <?php } ?>
                     </div>
                 </div>
             </div>
-        </div>     
-    </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+</div>
+</div>     
+</div>
 </div>
 
 <div class="product_details_s_product mb-40">
     <div class="container">
         <div class="product_details_s_product_inner">
             <div class="top_title p_details mb-10">
-                <h2>  Related Products</h2>
+                <h2>PRODUK SERUPA</h2>
             </div>
             <div class="single_product__wrapper">
 
                 <div class="row">
                     <div class="details_s_product_active related_product owl-carousel">   
-                        <div class="col-lg-3 col-md-3 col-sm-6">
-                            <div class="single_product categorie">
-                                <div class="product_thumb">
-                                    <a href="single-product.html"><img src="<?php echo base_url();?>assets/frontend/assets/img/product/product20.jpg" alt=""></a>
-                                    <div class="product_discount">
-                                        <span>-10%</span>
-                                    </div>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist "><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#" title=" Add to Compare "><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="#" title=" Add to cart "><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="quick_view">
-                                        <a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-search"></i></a>
+                        <?php
+                        $whr = [
+                            'list.list_id' => $glist['list_id'],
+                        ];
+                        $serupa = $this->Mymod->related($whr)->result_array();
+                        foreach ($serupa as  $srp) :
+
+                            $jtable=[
+                                'promo' => 'produk_kode',
+                                'produk' => 'produk_kode'
+                            ];
+                            $where=[
+                                't1.promo_start <='=>$tgl,
+                                't1.promo_end >'=>$tgl,
+                                't2.produk_kode'=>$srp['produk_kode'],
+                            ];
+                            $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                            $gprom = $promo->row_array();
+                            $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                            ?>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <div class="single_product categorie">
+                                    <div class="product_thumb">
+                                       <a href="<?= base_url().'produk/detail/'.$srp['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$srp['produk_gambar'];?>" alt="" style="width: 300px; height:200px;"></a>
+                                       <?php if($promo->row_array() > 0 ) {?>
+                                        <div class="product_discount">
+                                            <span>- <?= $gprom['promo_diskon']."%"; ?></span>
+                                        </div>
+                                    <?php } else {} ?>
+
+                                    <div class="quick_view categorie_view">
+                                        <a href="#" data-toggle="modal" data-target="#modal_box<?= $srp['produk_kode'];?>" title="Quick view"><i class="fa fa-search"></i></a>
                                     </div>
 
                                 </div>
                                 <div class="product_content">
-                                    <div class="samll_product_ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        </ul>
-                                    </div>
                                     <div class="small_product_name">
-                                        <a title="Printed Summer Dress" href="single-product.html">Dignissim venenatis</a>
-                                    </div>
-                                    <div class="small_product_price">
-                                        <span class="new_price"> $140.00 </span>
-                                        <span class="old_price">  $150.50  </span>
-                                    </div>
+                                      <a title="<?= $srp['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$srp['produk_kode'];?>"> <?= $srp['produk_nama']; ?> </a>
+                                  </div>
+                                  <div class="small_product_price">
+                                    <?php if($promo->row_array() > 0 ) {?>
+                                        <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                                        <span class="old_price"> <?= "Rp. ".number_format($srp['produk_harga']); ?> </span>
+                                    <?php } else { ?>
+
+                                        <span class="new_price"> <?= "Rp. ".number_format($srp['produk_harga']); ?> </span>
+
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
-                    </div>    
-                </div>
-            </div>
-        </div>     
+                    </div>
+                <?php endforeach; ?>
+            </div>    
+        </div>
     </div>
+</div>     
 </div>
+</div>
+
+

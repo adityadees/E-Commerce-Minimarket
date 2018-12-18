@@ -46,6 +46,7 @@
 												<tr>
 													<th>Nama</th>
 													<th>Keterangan</th>
+													<th>Gambar</th>
 													<th>Aksi</th>
 												</tr>
 											</thead>
@@ -54,14 +55,13 @@
 													<tr>
 														<td><?php echo $i['kategori_nama'];?></td>
 														<td><?php echo $i['kategori_ket'];?></td>
+														<td>    <img class="card-img-top img-fluid" src="<?php echo base_url().'assets/images/'.$i['kategori_gambar'];?>" alt="Card image cap" style="width:50px;height: 50px"></td>
 														<td class=" text-center">
 															<div class="btn-group mr-1 mb-1">
 																<button type="button" class="btn btn-icon btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
 																<div class="dropdown-menu">
 																	<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalEdit<?php echo $i['kategori_id']; ?>">Edit</a>
 																	<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalHapus<?php echo $i['kategori_id']; ?>">Hapus</a>
-																	<div class="dropdown-divider"></div>
-																	<a class="dropdown-item" href="#">Lihat Detail</a>
 																</div>
 															</div>
 														</td>
@@ -88,7 +88,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form action="<?php echo base_url()?>BackendC/save_kategori" method="POST">
+					<form action="<?php echo base_url()?>BackendC/save_kategori" method="POST" enctype="multipart/form-data">
 						<div class="modal-body">
 
 							<div class="row">
@@ -105,6 +105,14 @@
 									<div class="form-group">
 										<label>Keterangan: </label>
 										<textarea name="keterangan" class="form-control"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Gambar: </label>
+										<input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
 									</div>
 								</div>
 							</div>
@@ -128,7 +136,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form action="<?php echo base_url()?>BackendC/edit_kategori" method="POST">
+						<form action="<?php echo base_url()?>BackendC/edit_kategori" method="POST" enctype="multipart/form-data">
 							<div class="modal-body">
 
 								<div class="row">
@@ -150,6 +158,14 @@
 										</div>
 									</div>
 								</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Gambar: </label>
+										<input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
+									</div>
+								</div>
+							</div>
 							</div>
 							<div class="modal-footer">
 								<input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">

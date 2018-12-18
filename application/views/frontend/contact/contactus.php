@@ -1,107 +1,57 @@
-
-
-        <div class="breadcrumb-area gray-bg">
-            <div class="container">
-                <div class="breadcrumb-content">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"> Contact Us </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="contact-us ptb-68">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="contact-page-title mb-40">
-                            <h1>
-                                Hi, Howdy
-                                <br>
-                                Let’s Connect us
-                            </h1>
-                        </div>
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area contact_bread contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <div class="breadcrumb_header">
+                        <a href="index.html"><i class="fa fa-home"></i></a>
+                        <span><i class="fa fa-angle-right"></i></span>
+                        <span> Contact</span>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <ul class="contact-tab-list nav">
-                            <li><a class="active" href="#contact-address" data-toggle="tab">Contact us</a></li>
-                            <li><a  href="#contact-form-tab" data-toggle="tab">Leave us a message</a></li>
-                            <li><a href="#store-location" data-toggle="tab">Our location</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="tab-content tab-content-contact">
-                            <div id="contact-address" class="tab-pane fade row d-flex active show">
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="contact-information">
-                                        <h4>Address</h4>
-                                        <p>You address will be here Lorem Ipsum text</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="contact-information contact-mrg">
-                                        <h4>Phone</h4>
-                                        <p>
-                                            <a href="tel:01234567890">01234 567 890</a>
-                                            <a href="tel:01234567891">01234 567 891</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="contact-information contact-mrg">
-                                        <h4>Web</h4>
-                                        <p>
-                                            <a href="mailto:info@example.com">info@example.com</a>
-                                            <a href="#">www.example.com</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="contact-form-tab" class="tab-pane fade row d-flex">
-                                <div class="col">
-                                    <form id="contact-form" action="http://d29u17ylf1ylz9.cloudfront.net/phuler-v4/assets/mail.php" method="post">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="contact-form-style mb-20">
-                                                    <input name="name" placeholder="Full Name" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="contact-form-style mb-20">
-                                                    <input name="email" placeholder="Email Address" type="email">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="contact-form-style mb-20">
-                                                    <input name="subject" placeholder="Subject" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="contact-form-style">
-                                                    <textarea name="message" placeholder="Message"></textarea>
-                                                    <button class="submit" type="submit">SEND MESSAGE</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <p class="form-messege"></p>
-                                </div>
-                            </div>
-                            <div id="store-location" class="tab-pane fade row d-flex">
-                                <div class="col-12">
-                                    <div class="contact-map">
-                                        <div id="map"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="breadcrumb_title">
+                        <h2>Contact</h2>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
-        
+    </div>
+</div>
+<!--breadcrumbs area end-->
 
+<div class="contact_area mb-40">
+ <div class="container">
+     <div class="row">
+         <div class="col-lg-6 col-md-12">
+             <div class="contact_message">
+                <div class="contact_title">
+                    <h2>Our Locations</h2>   
+                </div>
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d704.3483402977597!2d104.72912110453498!3d-2.9874922095235674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x53e086977ac55e22!2sGantri!5e0!3m2!1sid!2sid!4v1545066678537" width="auto" height="450" frameborder="0" style="border:0" allowfullscreen class="col-md-12"></iframe>
+            </div> 
+        </div>
+        <div class="col-lg-6 col-md-12">
+         <div class="contact_info_wrapper">
+            <div class="contact_title">
+                <h4>contact us</h4>    
+            </div>
+            <div class="contact_info mb-15">
+               <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
+           </div>
+           <div class="contact_info mb-15">
+            <ul>
+                <li><i class="fa fa-fax"></i>  Address : No 40 Baria Sreet 133/2 NewYork City</li>
+                <li><i class="fa fa-phone"></i> <a href="#">Infor@roadthemes.com</a></li>
+                <li><i class="fa fa-envelope-o"></i> 0(1234) 567 890</li>
+            </ul>        
+        </div>
+        <div class="contact_info mb-15">
+            <h3><strong>Working hours</strong></h3>
+            <p><strong>Monday – Saturday</strong>:  08AM – 22PM</p>    
+        </div>    
+    </div> 
+</div>
+</div>
+</div>
+</div>

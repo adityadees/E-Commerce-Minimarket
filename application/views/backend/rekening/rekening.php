@@ -38,9 +38,10 @@
     				<div class="row match-height">
     					<?php foreach ($rekening as $rek) :?>
     						
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <div class="card border-danger text-center bg-transparent">
                                    <div class="card-header bg-transparent">
+                                    <h4 class="card-title"><b><?= $rek['rekening_bank'];?></b></h4>
                                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -54,11 +55,8 @@
                                     <div class="card-body pt-3">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="col-md-6 float-left">
-                                                    <img src="<?= base_url().'assets/images/'.$rek['rekening_gambar'];?>" alt="element 03" width="190">
-                                                </div>
-                                                <div class="col-md-6 float-right">
-                                                    <h4 class="card-title"><?= $rek['rekening_bank'];?></h4>
+                                                <div class="col-md-12 float-right">
+                                                    <img src="<?= base_url().'assets/images/'.$rek['rekening_gambar'];?>" alt="element 03" class="form-control" style="height: 100px;"><br>
                                                     <p class="card-text"><?= $rek['rekening_nama']; ?></p>
                                                     <p class="card-text"><?= $rek['rekening_nomor']; ?></p>
                                                 </div>

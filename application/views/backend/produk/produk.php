@@ -49,6 +49,7 @@
                                                     <th>List</th>
                                                     <th>Harga</th>
                                                     <th>Keterangan</th>
+                                                    <th>Promo Up</th>
                                                     <th>Gambar</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -60,7 +61,8 @@
                                                         <td><?php echo $i['produk_nama'];?></td>
                                                         <td><?php echo $i['list_nama'];?></td>
                                                         <td><?= 'Rp. '.number_format($i['produk_harga']); ?></td>
-                                                        <td><?php echo substr($i['produk_ket'],0,100);?>...</td>
+                                                        <td><?php echo substr($i['produk_ket'],0,50);?>...</td>
+                                                        <td><?php echo $i['produk_up']; ?></td>
                                                         <td>    <img class="card-img-top img-fluid" src="<?php echo base_url().'assets/images/'.$i['produk_gambar'];?>" alt="Card image cap"></td>
                                                         <td class=" text-center">
                                                             <div class="btn-group mr-1 mb-1">
@@ -135,88 +137,109 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Keterangan: </label>
-                                        <textarea name="keterangan" class="form-control"></textarea>
+                                       <label>Promo Up: </label>
+                                       <select class="form-control" name="produk_up">
+                                        <option value="yes">Ya</option>
+                                        <option value="no">Tidak</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                              <div class="form-group">
+                                <label>Keterangan: </label>
+                                <textarea name="keterangan" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-content collapse show">
+                                <input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
+                    <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<?php foreach ($produk as $i)  : ?>
+    <div class="modal fade text-left" id="modalEdit<?php echo $i['produk_kode']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel34" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="myModalLabel34">Edit Produk</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?php echo base_url()?>BackendC/edit_produk" enctype="multipart/form-data" method="POST">
+                    <div class="modal-body">
+                        <div class="contanier-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nama: </label>
+                                        <input type="hidden" name="produk_kode" value="<?= $i['produk_kode'];?>">
+                                        <input type="text" placeholder="Nama Produk" name="produk_nama" value="<?= $i['produk_nama']; ?>" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Harga: </label>
+                                        <input type="text" placeholder="Harga Produk" name="produk_harga" class="form-control" value="<?= $i['produk_harga']; ?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="card-content collapse show">
-                                        <input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
-                                    </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>List: </label>
+                                        <select class="form-control" name="list_id">
+                                           <?php foreach ($datalist as $j):?>
+                                            <option value="<?= $j['list_id'];?>" <?php if ($j['list_id']==$i['list_id']){echo "selected";} else {} ?>><?= $j['list_nama']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                   <label>Promo Up: </label>
+                                   <select class="form-control" name="produk_up">
+                                    <option value="yes">Ya</option>
+                                    <option value="no">Tidak</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
-                            <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-    <?php foreach ($produk as $i)  : ?>
-        <div class="modal fade text-left" id="modalEdit<?php echo $i['produk_kode']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel34" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel34">Edit Produk</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
-                    <form action="<?php echo base_url()?>BackendC/edit_produk" enctype="multipart/form-data" method="POST">
-                        <div class="modal-body">
-                            <div class="contanier-fluid">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Nama: </label>
-                                            <input type="hidden" name="produk_kode" value="<?= $i['produk_kode'];?>">
-                                            <input type="text" placeholder="Nama Produk" name="produk_nama" value="<?= $i['produk_nama']; ?>" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Harga: </label>
-                                            <input type="text" placeholder="Harga Produk" name="produk_harga" class="form-control" value="<?= $i['produk_harga']; ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>List: </label>
-                                            <select class="form-control" name="list_id">
-                                               <?php foreach ($datalist as $j):?>
-                                                <option value="<?= $j['list_id'];?>" <?php if ($j['list_id']==$i['list_id']){echo "selected";} else {} ?>><?= $j['list_nama']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                 <div class="form-group">
-                                  <label>Keterangan: </label>
-                                  <textarea name="keterangan" class="form-control"><?= $i['produk_ket']; ?></textarea>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
+                    <div class="row">
                         <div class="col-12">
-                         <div class="card-content collapse show">
-                          <input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
-                      </div>
+                          <div class="form-group">
+                            <label>Keterangan: </label>
+                            <textarea name="keterangan" class="form-control"><?= $i['produk_ket']; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                     <div class="card-content collapse show">
+                      <input type="file" name="filefoto" class="dropzone dropzone-area col-12" id="dpz-single-file">
                   </div>
               </div>
           </div>
       </div>
-      <div class="modal-footer">
-          <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
-          <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
-      </div>
+  </div>
+  <div class="modal-footer">
+      <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
+      <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
   </div>
 </form>
 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2018 at 09:44 PM
+-- Generation Time: Dec 18, 2018 at 06:27 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -32,7 +32,7 @@ CREATE TABLE `kategori` (
   `kategori_id` int(11) NOT NULL,
   `kategori_nama` varchar(50) NOT NULL,
   `kategori_ket` text NOT NULL,
-  `kategori_gambar` varchar(50) NOT NULL DEFAULT 'images/defaultkat.php'
+  `kategori_gambar` varchar(50) NOT NULL DEFAULT 'defaultkat.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,10 +41,10 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`kategori_id`, `kategori_nama`, `kategori_ket`, `kategori_gambar`) VALUES
 (10, 'Elektronik', 'peralatan elektronik\r\n', '0_f3ee8418-870f-4b29-82e8-c9967d04486d_540_540.jpg'),
-(11, 'Fashion', 'Baju celanan dan lainlain\r\n', 'images/defaultkat.php'),
-(12, 'Otomotif', '', 'images/defaultkat.php'),
-(13, 'Makanan & Minuman', '', 'images/defaultkat.php'),
-(14, 'Peralatan Dapur', '', 'images/defaultkat.php');
+(11, 'Fashion', 'Baju celanan dan lainlain\r\n', 'hbz-fashion-politics-index5-1522870340.jpg'),
+(12, 'Otomotif', '', 'defaultkat.png'),
+(13, 'Makanan & Minuman', '', 'defaultkat.png'),
+(14, 'Peralatan Dapur', '', 'defaultkat.png');
 
 -- --------------------------------------------------------
 
@@ -111,10 +111,10 @@ CREATE TABLE `pembayaran` (
   `pembayaran_kode` int(11) NOT NULL,
   `pemesanan_kode` varchar(15) NOT NULL,
   `pembayaran_nama` varchar(50) DEFAULT NULL,
-  `pembayaran_norek` varchar(30) DEFAULT NULL,
-  `pembayaran_status` enum('pending','selesai','belumbayar') DEFAULT NULL,
+  `pembayaran_pesan` text,
+  `pembayaran_status` enum('pending','selesai','belumbayar') DEFAULT 'pending',
   `pembayaran_method` enum('ditempat','transfer') NOT NULL,
-  `pembayaran_tanggal` datetime DEFAULT NULL,
+  `pembayaran_tanggal` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `pembayaran_bukti` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -122,9 +122,11 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`pembayaran_kode`, `pemesanan_kode`, `pembayaran_nama`, `pembayaran_norek`, `pembayaran_status`, `pembayaran_method`, `pembayaran_tanggal`, `pembayaran_bukti`) VALUES
-(2, 'INV90111182748', NULL, NULL, NULL, 'ditempat', NULL, NULL),
-(3, 'INV5561118292', NULL, NULL, 'belumbayar', 'transfer', NULL, NULL);
+INSERT INTO `pembayaran` (`pembayaran_kode`, `pemesanan_kode`, `pembayaran_nama`, `pembayaran_pesan`, `pembayaran_status`, `pembayaran_method`, `pembayaran_tanggal`, `pembayaran_bukti`) VALUES
+(2, 'INV90111182748', NULL, NULL, 'selesai', 'ditempat', '2018-12-18 00:30:15', NULL),
+(3, 'INV5561118292', 'budi', NULL, 'selesai', 'transfer', '2018-12-17 03:40:36', 'a168aed1818caefbc649299892d9af3c_(1).jpg'),
+(4, 'INV1581218112', NULL, NULL, 'belumbayar', 'transfer', NULL, NULL),
+(5, 'INV7811218177', NULL, NULL, 'pending', 'ditempat', '2018-12-18 00:30:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -147,8 +149,10 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`pemesanan_kode`, `user_id`, `pemesanan_subtotal`, `pemesanan_ongkir`, `pemesanan_total`, `pemesanan_status`, `pemesanan_tanggal`) VALUES
-('INV5561118292', 4, 2625, 5000, 7625, 'waiting', '2018-11-29 08:38:33'),
-('INV90111182748', 4, 276400, 0, 276400, 'waiting', '2018-11-27 07:18:15');
+('INV1581218112', 4, 290500, 0, 290500, 'waiting', '2018-12-12 00:05:05'),
+('INV5561118292', 4, 2625, 5000, 7625, 'selesai', '2018-10-11 08:38:33'),
+('INV7811218177', 4, 977400, 0, 977400, 'waiting', '2018-12-18 00:27:27'),
+('INV90111182748', 4, 276400, 0, 276400, 'selesai', '2018-11-27 07:18:15');
 
 -- --------------------------------------------------------
 
@@ -174,7 +178,14 @@ CREATE TABLE `pemesanan_detailp` (
 INSERT INTO `pemesanan_detailp` (`pdp_id`, `pemesanan_kode`, `produk_kode`, `pdp_qty`, `pdp_bonus`, `pdp_harga`, `pdp_diskon`, `pdp_subtotal`) VALUES
 (3, 'INV90111182748', 'PRD1261120187', 2, 1, 125000, 0, 250000),
 (4, 'INV90111182748', 'PRD1941120181', 1, 0, 26400, 12, 26400),
-(5, 'INV5561118292', 'PRD13311201810', 1, 0, 2625, 25, 2625);
+(5, 'INV5561118292', 'PRD13311201810', 1, 0, 2625, 25, 2625),
+(6, 'INV1581218112', 'PRD1261120187', 2, 1, 125000, 0, 250000),
+(7, 'INV1581218112', 'PRD13311201810', 3, 0, 3500, 0, 10500),
+(8, 'INV1581218112', 'PRD1941120181', 1, 0, 30000, 0, 30000),
+(9, 'INV7811218177', 'PRD1261120187', 4, 2, 125000, 0, 500000),
+(10, 'INV7811218177', 'PRD2841120189', 1, 0, 439000, 0, 439000),
+(11, 'INV7811218177', 'PRD21911201810', 1, 0, 34900, 0, 34900),
+(12, 'INV7811218177', 'PRD13311201810', 1, 0, 3500, 0, 3500);
 
 -- --------------------------------------------------------
 
@@ -197,7 +208,9 @@ CREATE TABLE `pemesanan_ship` (
 
 INSERT INTO `pemesanan_ship` (`ps_id`, `pemesanan_kode`, `ps_nama`, `ps_email`, `ps_tel`, `ps_alamat`) VALUES
 (1, 'INV90111182748', 'tesadmin', 'admin@aaa.com33', '082222333', 'jl.aaa44411'),
-(2, 'INV5561118292', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa44411');
+(2, 'INV5561118292', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa44411'),
+(3, 'INV1581218112', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa44411\r\n'),
+(4, 'INV7811218177', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa444112');
 
 -- --------------------------------------------------------
 
@@ -380,10 +393,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_username`, `user_password`, `user_nama`, `user_email`, `user_tel`, `user_alamat`, `user_jk`, `user_role`) VALUES
-(1, 'adityads', '202cb962ac59075b964b07152d234b70', 'tesadmin', 'admin@aaa.com33', '082222333', 'jl.aaa444', 'L', 'admin'),
-(4, 'admin', '202cb962ac59075b964b07152d234b70', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa44411', 'L', 'customer'),
-(5, 'wayan', '202cb962ac59075b964b07152d234b70', 'tesadmin', 'admin@aaa.com33', '082222333', 'jl.aaa444', 'P', 'admin'),
-(6, 'ranama', '202cb962ac59075b964b07152d234b70', 'tesadmin', 'admin@aaa.com33', '082222333', 'jl.aaa444', 'P', 'customer');
+(1, 'admin', '202cb962ac59075b964b07152d234b70', 'admin', 'admin@aaa.com33', '082222333', 'jl.aaa44411', 'L', 'admin'),
+(4, 'adityads', '202cb962ac59075b964b07152d234b70', 'AdityaDS', 'admin@aaa.com33', '082222333', 'jl.aaa444112', 'L', 'customer'),
+(5, 'wayan', '202cb962ac59075b964b07152d234b70', 'Wayan', 'admin@aaa.com33', '082222333', 'jl.aaa444', 'P', 'admin'),
+(6, 'ranama', '202cb962ac59075b964b07152d234b70', 'Ranama', 'admin@aaa.com33', '082280681966', 'jl.aaa444', 'P', 'customer');
 
 --
 -- Indexes for dumped tables
@@ -503,19 +516,19 @@ ALTER TABLE `list`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `pembayaran_kode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pembayaran_kode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pemesanan_detailp`
 --
 ALTER TABLE `pemesanan_detailp`
-  MODIFY `pdp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pdp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pemesanan_ship`
 --
 ALTER TABLE `pemesanan_ship`
-  MODIFY `ps_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ps_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `promo`
