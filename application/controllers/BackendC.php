@@ -1108,7 +1108,7 @@ class BackendC extends CI_Controller{
 		$area = '62';
 		$str = $user;
 		$str[0] = '';
-		$nphone = $str.$area;
+		$nphone = $area.$str;
 		$red = "https://wa.me/".$nphone."?text=".$message;
 
 		//echo "<script>

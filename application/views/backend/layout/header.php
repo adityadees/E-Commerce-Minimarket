@@ -6,8 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <title>Admin Panel</title>
-  <link rel="apple-touch-icon" href="<?php echo base_url();?>assets/backend/images/ico/apple-icon-120.png">
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/backend/images/ico/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/frontend/assets/img/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/backend/css/core/menu/menu-types/vertical-menu-modern.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/backend/css/vendors.css">
