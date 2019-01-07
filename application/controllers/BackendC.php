@@ -58,6 +58,7 @@ class BackendC extends CI_Controller{
 			'produk' => 'list_id',
 			'list' => 'list_id'
 		];
+
 		$prod = $this->Mymod->GetDataJoinNW($jtable)->result_array();
 		$list_data = $this->Mymod->ViewData('list');
 		$x['produk'] = $prod;
@@ -765,6 +766,7 @@ class BackendC extends CI_Controller{
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
 		$produk_up=$this->input->post('produk_up');
+		$produk_parent=$this->input->post('produk_parent');
 		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
@@ -789,6 +791,7 @@ class BackendC extends CI_Controller{
 					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_up' => $produk_up,
+					'produk_parent' => $produk_parent,
 					'produk_ket' => $keterangan,
 					'produk_gambar' => $produk_gambar
 				];
@@ -809,6 +812,7 @@ class BackendC extends CI_Controller{
 					'list_id' => $list_id,
 					'produk_harga' => $produk_harga,
 					'produk_up' => $produk_up,
+					'produk_parent' => $produk_parent,
 					'produk_ket' => $keterangan,
 				];
 				$InsertData=$this->Mymod->InsertData($table,$data);
@@ -827,6 +831,7 @@ class BackendC extends CI_Controller{
 				'list_id' => $list_id,
 				'produk_harga' => $produk_harga,
 				'produk_up' => $produk_up,
+				'produk_parent' => $produk_parent,
 				'produk_ket' => $keterangan,
 			];
 			$InsertData=$this->Mymod->InsertData($table,$data);
@@ -911,10 +916,12 @@ class BackendC extends CI_Controller{
 	}	
 
 	public function edit_produk(){
+		$produk_parent=$this->input->post('produk_parent');
 		$produk_kode=$this->input->post('produk_kode');
 		$produk_nama=$this->input->post('produk_nama');
 		$produk_harga=$this->input->post('produk_harga');
 		$produk_up=$this->input->post('produk_up');
+		$produk_parent=$this->input->post('produk_parent');
 		$list_id=$this->input->post('list_id');
 		$keterangan=$this->input->post('keterangan');
 		$table='produk';
@@ -944,6 +951,7 @@ class BackendC extends CI_Controller{
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 					'produk_up' => $produk_up,
+					'produk_parent' => $produk_parent,
 					'produk_gambar' => $produk_gambar
 				];
 
@@ -962,6 +970,7 @@ class BackendC extends CI_Controller{
 					'produk_nama' => $produk_nama,
 					'list_id' => $list_id,
 					'produk_up' => $produk_up,
+					'produk_parent' => $produk_parent,
 					'produk_harga' => $produk_harga,
 					'produk_ket' => $keterangan,
 				];
@@ -982,6 +991,7 @@ class BackendC extends CI_Controller{
 				'produk_nama' => $produk_nama,
 				'list_id' => $list_id,
 				'produk_up' => $produk_up,
+				'produk_parent' => $produk_parent,
 				'produk_harga' => $produk_harga,
 				'produk_ket' => $keterangan,
 			];

@@ -251,6 +251,13 @@ class Mymod extends CI_Model{
         return $res;
     }
 
+    public function getProdukNotParent($produk_kode){
+        $this->db->select('*');
+        $this->db->from('produk');
+        $this->db->where('produk_kode !=',$produk_kode);
+        $res = $this->db->get();
+        return $res;
+    }
 
 
 }
