@@ -40,6 +40,7 @@
             <ul>
                 <li><i class="fa fa-fax"></i>  Address : Jalan Srijaya Negara Bukit Besar Palembang Kelurahan Bukit Lama  Kecamatan Ilir Barat I Kota Palembang Provinsi Sumatera Selatan Kode  Pos 30139.</li>
                 <li><i class="fa fa-phone"></i> <a href="#">(0711) 351816</a></li>
+                <li><i class="fa fa-whatsapp"></i> <a href="#">+62 818 0406 6060</a></li>
                 <li><i class="fa fa-envelope-o"></i> Gantriminimarket@gmail.com</li>
             </ul>        
         </div>
