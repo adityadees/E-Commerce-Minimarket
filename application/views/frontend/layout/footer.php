@@ -31,86 +31,26 @@
         </div>
     </div>
 </div>
-<!--newsletter area end-->
 
-<!--footer area start-->
 <div class="footer_area">
     <div class="container">
         <div class="footer_top">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="single_footer">
                         <h4>store information</h4>
                         
                         <ul>
                             <li><i class="fa fa-home"></i>KPRI GUKA SMK N 3 PALEMBANG <br>JL SRIJAYA NEGARA BUKIT BESAR
                          </li>
-                         <li><i class="fa fa-phone"></i> (+62) 858-883–43527</li>
-                         <li><a href="#"><i class="fa fa-envelope-square"></i> demo@posthemes.com</a></li>
+                         <li><i class="fa fa-phone"></i> (0711) 351816</li>
+                         <li><a href="#"><i class="fa fa-envelope-square"></i> Gantriminimarket@gmail.com</a></li>
                      </ul>
-                 </div>
+                 </div> 
              </div>
-             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single_footer">
-                    <h4>Information</h4>
-                    <ul>
-                        <li><a href="#"><i class="fa fa-circle"></i> Our Blog</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> About Our Shop</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Secure Shopping</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Delivery infomation</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Store Locations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single_footer">
-                    <h4>My account</h4>
-                    <ul>
-                        <li><a href="#"><i class="fa fa-circle"></i> My orders</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> About Us</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Contact</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Shopping cart</a></li>
-                        <li><a href="#"><i class="fa fa-circle"></i> Checkout</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single_footer">
-                    <h4>instagram</h4>
-                    <div class="instagram_img">
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram1.jpg" alt=""></a>
-                        </div>
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram2.jpg" alt=""></a>
-                        </div>
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram3.jpg" alt=""></a>
-                        </div>
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram4.jpg" alt=""></a>
-                        </div>
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram5.jpg" alt=""></a>
-                        </div>
-                        <div class="single_instagram_img">
-                            <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/instagram/instagram6.jpg" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+             
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="footer_tags">
-
-                <a href="#" title="More about Accessories"> Accessories </a>
-                
-            </div>
-        </div>
-    </div>
-
     <div class="copyright_area">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">

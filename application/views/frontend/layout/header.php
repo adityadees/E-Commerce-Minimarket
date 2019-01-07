@@ -56,7 +56,7 @@
         <div class="col-lg-6">
           <div class="top_left_sidebar">
             <div class="contact_link link_three">
-              <span>Call us toll free : <strong>(+62) 858-883–43527</strong></span>
+              <span>Call us toll free : <strong>(0711) 351816</strong></span>
             </div>
           </div>
         </div>

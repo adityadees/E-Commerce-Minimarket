@@ -58,7 +58,6 @@
                                                 <th>User</th>
                                                 <th>Total</th>
                                                 <th>Metode Pembayaran</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +70,6 @@
                                                         <td><?= $i['user_nama'];?></td>
                                                         <td><?= "Rp. ".number_format($i['pemesanan_total']);?></td>
                                                         <td><?= ucfirst($i['pembayaran_method']);?></td>
-                                                        <td><?= $i['pemesanan_kode'];?></td>
                                                     </tr>
                                                 <?php } endforeach; ?>
                                             </tbody>

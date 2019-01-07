@@ -206,11 +206,11 @@ class FrontendC extends CI_Controller{
 		$prod = $this->Mymod->ViewData('produk');
 		$best = $this->Mymod->best_seller()->result_array();
 		$kat = $this->Mymod->ViewData('kategori');
+		$y['kategori'] = $kat;
 		$x['produk'] = $prod;
 		$x['best'] = $best;
 		$x['kategori'] = $kat;
 		$xx['produk'] = $prod;
-		$y['kategori'] = $kat;
 		$y['title']='Produk';
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/produk/produk',$x);
@@ -218,14 +218,18 @@ class FrontendC extends CI_Controller{
 	}
 
 	public function contactus(){
+		$kat = $this->Mymod->ViewData('kategori');
 		$y['title']='Contact Us';
+		$y['kategori'] = $kat;
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/contact/contactus');
 		$this->load->view('frontend/layout/footer');		
 	}
 
 	public function aboutus(){
+		$kat = $this->Mymod->ViewData('kategori');
 		$y['title']='Contact Us';
+		$y['kategori'] = $kat;
 		$this->load->view('frontend/layout/header',$y);
 		$this->load->view('frontend/contact/aboutus');
 		$this->load->view('frontend/layout/footer');		

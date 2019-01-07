@@ -110,7 +110,7 @@
                                     <div class="col-lg-3">
                                         <div class="single_product">
                                             <div class="product_thumb">
-                                                <a href="<?= base_url();?>produk/detail/<?= $prom['produk_kode']; ?>"><img src="<?php echo base_url();?>assets/images/<?= $prom['produk_gambar']; ?>" alt=""></a>
+                                                <a href="<?= base_url();?>produk/detail/<?= $prom['produk_kode']; ?>"><img src="<?php echo base_url();?>assets/images/<?= $prom['produk_gambar']; ?>" alt="" height="160px"></a>
                                                 <div class="product_discount">
                                                     <span><?= "-".$prom['promo_diskon']."%";?></span>
                                                 </div>
@@ -140,34 +140,13 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="product_banner fix">
-                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/banner/banner1.jpg" alt=""></a>
+                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/banner/q.jpg" alt=""></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="banner_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_banner fix">
-                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/banner/banner2.jpg" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_banner fix">
-                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/banner/banner3.jpg" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_banner b_three fix">
-                        <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/banner/banner4.jpg" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>                              
-    </div> 
 
     <div class="featured_area mb-40">
         <div class="container">
@@ -246,17 +225,12 @@
                     <div class="single_brand_item single_i_four">
                         <div class="brand_itens_inner">
                             <div class="single_brand single_b_four">
-                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
+                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/bni.png" alt="" height="50px"></a>
                             </div>
                         </div>
                         <div class="brand_itens_inner">
                             <div class="single_brand single_b_four">
-                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="brand_itens_inner">
-                            <div class="single_brand single_b_four">
-                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/brand1.jpg" alt=""></a>
+                                <a href="#"><img src="<?php echo base_url();?>assets/frontend/assets/img/brand/bri.png" alt="" height="50px"></a>
                             </div>
                         </div>
                     </div>
@@ -345,7 +319,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="single_static mb-30">
                     <div class="icone_static">
-                        <i class="fa fa-coffee"></i>
+                        <i class="fa fa-address-book"></i>
                     </div>
                     <div class="content_static">
                         <h4>Free Delivery</h4>

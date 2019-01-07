@@ -36,19 +36,16 @@
             <div class="contact_title">
                 <h4>contact us</h4>    
             </div>
-            <div class="contact_info mb-15">
-               <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
-           </div>
            <div class="contact_info mb-15">
             <ul>
-                <li><i class="fa fa-fax"></i>  Address : No 40 Baria Sreet 133/2 NewYork City</li>
-                <li><i class="fa fa-phone"></i> <a href="#">Infor@roadthemes.com</a></li>
-                <li><i class="fa fa-envelope-o"></i> 0(1234) 567 890</li>
+                <li><i class="fa fa-fax"></i>  Address : Jalan Srijaya Negara Bukit Besar Palembang Kelurahan Bukit Lama  Kecamatan Ilir Barat I Kota Palembang Provinsi Sumatera Selatan Kode  Pos 30139.</li>
+                <li><i class="fa fa-phone"></i> <a href="#">(0711) 351816</a></li>
+                <li><i class="fa fa-envelope-o"></i> Gantriminimarket@gmail.com</li>
             </ul>        
         </div>
         <div class="contact_info mb-15">
             <h3><strong>Working hours</strong></h3>
-            <p><strong>Monday – Saturday</strong>:  08AM – 22PM</p>    
+            <p><strong>Monday – Sunday</strong>:  08AM – 22PM</p>    
         </div>    
     </div> 
 </div>

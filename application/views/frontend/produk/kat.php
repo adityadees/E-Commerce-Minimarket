@@ -150,22 +150,22 @@
     </div>
     <div class="tab-pane fade" id="list" role="tabpanel">
         <?php 
-        $tgl=date("Y-m-d h:i:s");
-        foreach ($produk as $prod) :
+                    $tgl=date("Y-m-d h:i:s");
+                    foreach ($nprd as $prod) :
 
-            $jtable=[
-                'promo' => 'produk_kode',
-                'produk' => 'produk_kode'
-            ];
-            $where=[
-                't1.promo_start <='=>$tgl,
-                't1.promo_end >'=>$tgl,
-                't2.produk_kode'=>$prod['produk_kode'],
-            ];
-            $promo = $this->Mymod->GetDataJoin($jtable,$where);
-            $gprom = $promo->row_array();
-            $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
-            ?>
+                        $jtable=[
+                            'promo' => 'produk_kode',
+                            'produk' => 'produk_kode'
+                        ];
+                        $where=[
+                            't1.promo_start <='=>$tgl,
+                            't1.promo_end >'=>$tgl,
+                            't2.produk_kode'=>$prod['produk_kode'],
+                        ];
+                        $promo = $this->Mymod->GetDataJoin($jtable,$where);
+                        $gprom = $promo->row_array();
+                        $newprc=($gprom['produk_harga']-(($gprom['produk_harga']*$gprom['promo_diskon'])/100));
+                        ?>
 
             <div class="single_product categorie">   
                 <div class="row cate_tab_product">
