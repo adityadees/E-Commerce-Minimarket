@@ -65,7 +65,7 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
             </div>
             <div class="col-lg-7 col-md-6">
                 <div class="product_d_right">
-                    <h1>Printed Summer Dress</h1>
+                    <h1><?= $prd_detail['produk_nama']; ?></h1>
                     <div class="product_reference">
                         <p>
                             Reference: 
@@ -137,7 +137,7 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
 
                                 <?php 
                                 $prparent = $this->Mymod->ViewDetail('produk','produk_kode',$prd_detail['produk_parent']);
-                                if($prparent['produk_parent']==''){ ?>
+                                if($prparent['produk_parent']=='null'){ ?>
                                     <p><?= $prd_detail['produk_ket']; ?></p>
                                 <?php }
                                 else {
@@ -145,10 +145,12 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <h4 class="text-center"><b>Related Produk</b></h4>
+                                            <h4 class="text-center" style="margin-bottom:10px"><b>Related Produk</b>
+                                                <div style="padding-top:10px; border-bottom: 1px solid #c8d6e5;margin-bottom:10px;,padding-top:10px;"></div>
+                                            </h4>
                                             <div class="single_product categorie">
-                                                <div class="product_thumb">
-                                                  <a href="<?= base_url().'produk/detail/'.$prparent['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$prparent['produk_gambar'];?>" alt="" style="width: 300px; height:200px;"></a>
+                                                <div class="product_thumb ">
+                                                  <a href="<?= base_url().'produk/detail/'.$prparent['produk_kode'];?>"><img src="<?= base_url().'assets/images/'.$prparent['produk_gambar'];?>" alt="" style="width: 300px; height:200px; "></a>
                                                   <?php if($promo->row_array() > 0 ) {?>
                                                     <div class="product_discount">
                                                         <span>- <?= $gprom['promo_diskon']."%"; ?></span>
@@ -160,39 +162,41 @@ $gkategori = $this->Mymod->ViewDetail('kategori','kategori_id',$gsubkat['kategor
 
                                             </div>
                                             <div class="product_content">
-                                                <div class="small_product_name">
-                                                  <a title="<?= $prparent['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$prparent['produk_kode'];?>"> <?= $prparent['produk_nama']; ?> </a>
-                                              </div>
-                                              <div class="small_product_price">
-                                                <?php if($promo->row_array() > 0 ) {?>
-                                                    <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
-                                                    <span class="old_price"> <?= "Rp. ".number_format($prparent['produk_harga']); ?> </span>
-                                                <?php } else { ?>
+                                                <div class="small_product_name text-center">
+                                                    <a title="<?= $prparent['produk_nama']; ?>" href="<?= base_url().'produk/detail/'.$prparent['produk_kode'];?>"><b> <?= $prparent['produk_nama']; ?> </b></a>
+                                                </div>
+                                                <div style="text-align: center;font-size: 17px;color:red;">
+                                                    <b>
+                                                        <?php if($promo->row_array() > 0 ) {?>
+                                                            <span class="new_price"> <?= "Rp. ".number_format($newprc); ?>  </span>
+                                                            <span class="old_price"> <?= "Rp. ".number_format($prparent['produk_harga']); ?> </span>
+                                                        <?php } else { ?>
 
-                                                    <span class="new_price"> <?= "Rp. ".number_format($prparent['produk_harga']); ?> </span>
+                                                            <span class="new_price"> <?= "Rp. ".number_format($prparent['produk_harga']); ?> </span>
 
-                                                <?php } ?>
+                                                        <?php } ?>
+                                                    </b>
+                                                </div>
                                             </div>
                                         </div>
+
+
                                     </div>
-
-
+                                    <div class="col-md-9">
+                                        <p><?= $prd_detail['produk_ket']; ?></p>
+                                    </div>
                                 </div>
-                                <div class="col-md-9">
-                                    <p><?= $prd_detail['produk_ket']; ?></p>
-                                </div>
-                            </div>
 
-                        <?php } ?>
+                            <?php } ?>
 
-                    </div>    
-                </div>
-            </div>  
+                        </div>    
+                    </div>
+                </div>  
 
-        </div>
-    </div>   
+            </div>
+        </div>   
 
-</div>
+    </div>
 </div>
 </div>
 
