@@ -1,6 +1,4 @@
-# Project Title
-
-E-Commerce (Online Shop) 
+# E-Commerce (Online Shop) 
 
 ## Getting Started
 
