@@ -52,16 +52,21 @@ password 123
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/adityadees/stuff/blob/master/contributing.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
+After you read and understand the terms and conditions, you can follow the steps below.
+1. Fork it (<https://github.com/yourname/yourproject/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
 
 ## Authors
 
 * **AdityaDS**  - [AdityaDees](https://github.com/adityadees)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/adityadees/Gantri-Shop/blob/master/LICENSE) file for details
 
